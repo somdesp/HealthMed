@@ -1,6 +1,7 @@
 Health&Med
 
 ✅ Requisitos Funcionais (RF)
+
 RF01 - Cadastro de Pacientes
 O sistema deve permitir o cadastro de pacientes com informações como nome, CPF, data de nascimento, e-mail, telefone e endereço.
 
