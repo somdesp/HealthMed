@@ -1,6 +1,7 @@
 Health&Med
 
 ✅ Requisitos Funcionais (RF)
+
 RF01 - Cadastro de Pacientes
 O sistema deve permitir o cadastro de pacientes com informações como nome, CPF, data de nascimento, e-mail, telefone e endereço.
 
@@ -32,6 +33,7 @@ RF10 - Fila de Processamento Assíncrona
 O sistema deve processar notificações e atualizações de agenda via fila (RabbitMQ), desacoplando essas tarefas da interface principal.
 
 ✅ Requisitos Não Funcionais (RNF)
+
 RNF01 - Escalabilidade
 A arquitetura do sistema deve ser escalável horizontalmente, permitindo a adição de novos serviços conforme a demanda crescer.
 
