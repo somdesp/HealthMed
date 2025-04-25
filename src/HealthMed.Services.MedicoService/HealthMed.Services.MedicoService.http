@@ -1,0 +1,6 @@
+@HealthMed.Services.MedicoService_HostAddress = http://localhost:5202
+
+GET {{HealthMed.Services.MedicoService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
