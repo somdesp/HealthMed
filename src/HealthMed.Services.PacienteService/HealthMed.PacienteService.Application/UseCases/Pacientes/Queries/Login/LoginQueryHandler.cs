@@ -25,7 +25,8 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, PacienteLoginRespon
 
     public async Task<PacienteLoginResponseDto> Handle(LoginQuery request, CancellationToken cancellationToken)
     {
-        var result = await _pacienteRepository.FirstOrDefaultAsync(e => e.Ativo && e.Cpf!.ToString() == request.Cpf && e.Senha == request.Senha)
+        string senhaCriptografada = CryptoHelper.CriptografarSenha(request.Senha, "HelthMed#2025");
+        var result = await _pacienteRepository.FirstOrDefaultAsync(e => e.Ativo && e.Cpf.Numero == request.Cpf && e.Senha == senhaCriptografada)
             ?? throw new ValidationException("Login", "CRM e/ou senha inválido(s)");
 
         var accessToken = await GenerateJwtToken(result);
@@ -45,7 +46,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, PacienteLoginRespon
                 [
                     new Claim(ClaimTypes.NameIdentifier, medico.Id.ToString()),
                     new Claim(ClaimTypes.Name, medico.Nome),
-                    new Claim(ClaimTypes.Role, "Medico")
+                    new Claim(ClaimTypes.Role, "Paciente")
                 ]),
                 Expires = DateTime.Now.AddHours(_tokenSettings.ExpiracaoHoras),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

@@ -1,4 +1,3 @@
-﻿using HealthMed.PacienteService.Application.Exceptions;
 using HealthMed.PacienteService.Application.UseCases.Pacientes.Queries.Login;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,17 +16,9 @@ public class LoginController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login([FromBody] LoginQuery query)
+    public async Task<ActionResult> Login([FromBody] LoginQuery query)
     {
-        try
-        {
-            var result = await _mediator.Send(query);
-            return Ok(result);
-        }
-        catch (ValidationException ex)
-        {
-            return BadRequest(ex.Errors["Login"]);
-        }
-
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 }

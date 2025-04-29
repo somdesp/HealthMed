@@ -13,7 +13,7 @@ public static class ConfigureServices
     {
         services.AddDbContext<PacienteContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("MedicoConnectionString"));
+            options.UseSqlServer(configuration.GetConnectionString("PacienteConnectionString"));
         });
         services.AddScoped<IPacienteRepository, PacienteRepository>();
 
