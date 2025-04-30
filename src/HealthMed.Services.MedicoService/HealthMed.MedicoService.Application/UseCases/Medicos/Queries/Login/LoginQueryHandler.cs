@@ -2,7 +2,6 @@
 using HealthMed.MedicoService.Application.Contracts.Persistence;
 using HealthMed.MedicoService.Application.Dtos;
 using HealthMed.MedicoService.Application.Exceptions;
-using HealthMed.MedicoService.Application.Settings;
 using MediatR;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

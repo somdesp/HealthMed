@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: work-service-latest
+  # namespace: fiap
+  labels:
+    app: work-service-latest
+  annotations:
+    autor: "Grupo 23"
+    app-version: "4.0"
+    description: "Service Work responsavel pela fila rabbitMQ"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: work-service-latest
+  template:
+    metadata:
+      labels:
+        app: work-service-latest
+    spec:
+      containers:
+        - image: somdesp/fiap5:work_service_latest
+          name: work-service-latest
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthcheck
+              port: 5001
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 5001
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          ports:
+            - containerPort: 5001
+              protocol: TCP
+          env:
+            - name: ConnectionStrings__FiapConnection
+              valueFrom:
+                secretKeyRef:
+                  name: apiserver-secret
+                  key: FiapConnection
+
+            - name: ConnectionStrings__RabbitMq
+              valueFrom:
+                configMapKeyRef:
+                  name: apiserver-configmap
+                  key: RabbitMq
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: work-service-latest
+  # namespace: fiap
+spec:
+  type: NodePort
+  ports:
+    - port: 5001
+      nodePort: 30091
+  selector:
+    app: work-service-latest

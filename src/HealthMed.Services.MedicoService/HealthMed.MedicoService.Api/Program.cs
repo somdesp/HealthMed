@@ -1,37 +1,46 @@
+using HealthMed.BuildingBlocks.Configurations;
 using HealthMed.MedicoService.Application;
-using HealthMed.MedicoService.Application.Settings;
 using HealthMed.MedicoService.Infrastructure;
 using HealthMed.MedicoService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSecurity(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddMassTransitExtensionWeb(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerConfiguration();
 
 var app = builder.Build();
+app.UseMetricServer();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-// Faz o banco aplicar migrations automáticas
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<MedicoContext>();
     db.Database.Migrate();
 }
 
+app.UseRouting();
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
+
+app.UseHttpMetrics();
 
 app.Run();

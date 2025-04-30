@@ -1,0 +1,20 @@
+<header class="header">
+    <div class="header-left">
+        <div class="logo">
+            <span [innerHTML]="logo"></span>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="user-info">
+            <div class="font-semibold">{{ usuario?.unique_name }}</div>
+            <div class="text-xs text-gray-500 capitalize">{{ usuario?.role }}</div>
+        </div>
+        <div class="avatar">
+            {{ avatarInicial(usuario?.unique_name) }}
+        </div>
+        <button (click)="logout()"
+            class="text-sm px-3 py-1 rounded-md bg-red-50 text-red-600 hover:bg-red-100 transition">
+            Sair
+        </button>
+    </div>
+</header>

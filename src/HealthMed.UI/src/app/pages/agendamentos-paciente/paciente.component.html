@@ -1,0 +1,35 @@
+<div class="tabela-container">
+    <!-- Filtro de Pesquisa -->
+    <div class="filtro">
+        <input type="text" [(ngModel)]="filtro" placeholder="Buscar por médico ou especialidade..."
+            class="input-pesquisa" />
+    </div>
+
+    <!-- Tabela de Consultas -->
+    <table class="tabela-consultas">
+        <thead>
+            <tr>
+                <th>Médico</th>
+                <th>Especialidade</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th>Laudo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let consulta of consultasFiltradas()">
+                <td>{{ consulta.medico }}</td>
+                <td>{{ consulta.especialidade }}</td>
+                <td>{{ consulta.data | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>
+                    <span [class]="consulta.status">{{ consulta.status }}</span>
+                </td>
+                <td>{{ consulta.laudo ?? '—' }}</td>
+                <td>
+                    <button (click)="visualizar(consulta)">Visualizar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -2,7 +2,6 @@
 using HealthMed.PacienteService.Application.Contracts.Persistence;
 using HealthMed.PacienteService.Application.Dtos;
 using HealthMed.PacienteService.Application.Exceptions;
-using HealthMed.PacienteService.Application.Settings;
 using HealthMed.PacienteService.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Options;
@@ -31,12 +30,21 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, PacienteLoginRespon
         var result = await _pacienteRepository.FirstOrDefaultAsync(e => e.Ativo && e.Cpf.Numero == request.Cpf && e.Senha == senhaCriptografada)
             ?? throw new ValidationException("Login", "CPF e/ou senha inválido(s)");
 
-        var accessToken = await GenerateJwtToken(result);
+        ClaimsIdentity claimsIdentity = new ClaimsIdentity(
+               [
+                   new Claim(ClaimTypes.NameIdentifier, result.Id.ToString()),
+                    new Claim(ClaimTypes.Name, result.Nome),
+                    new Claim("doc", result.Cpf.ToString()),
+                    new Claim(ClaimTypes.Role, "Paciente")
+               ]);
+
+
+        var accessToken = await GenerateJwtToken(claimsIdentity);
 
         return new PacienteLoginResponseDto(accessToken);
     }
 
-    private async Task<string> GenerateJwtToken(Paciente medico)
+    private async Task<string> GenerateJwtToken(ClaimsIdentity claimsIdentity)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = await Task.Run(() =>
@@ -44,12 +52,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, PacienteLoginRespon
             var key = Encoding.ASCII.GetBytes(_tokenSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(
-                [
-                    new Claim(ClaimTypes.NameIdentifier, medico.Id.ToString()),
-                    new Claim(ClaimTypes.Name, medico.Nome),
-                    new Claim(ClaimTypes.Role, "Paciente")
-                ]),
+                Subject = claimsIdentity,
                 Expires = DateTime.Now.AddHours(_tokenSettings.ExpiracaoHoras),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

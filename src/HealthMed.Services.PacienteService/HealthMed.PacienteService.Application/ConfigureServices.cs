@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using HealthMed.PacienteService.Application.Behaviors;
+using HealthMed.BuildingBlocks.Configurations.Behaviors;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
