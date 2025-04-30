@@ -1,0 +1,90 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1976d2;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-info {
+    text-align: right;
+}
+
+.user-info .nome {
+    font-weight: 600;
+    color: #333;
+}
+
+.user-info .tipo {
+    font-size: 12px;
+    color: #666;
+    text-transform: capitalize;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    background-color: #1976d2;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.logout {
+    background-color: transparent;
+    border: none;
+    color: #d32f2f;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.logout:hover {
+    background-color: #fddede;
+}
+
+.avatar {
+    width: 40px;
+    /* w-10 */
+    height: 40px;
+    /* h-10 */
+    background-color: #dbeafe;
+    /* bg-blue-100 */
+    color: #2563eb;
+    /* text-blue-600 */
+    display: flex;
+    /* flex */
+    align-items: center;
+    /* items-center */
+    justify-content: center;
+    /* justify-center */
+    border-radius: 9999px;
+    /* rounded-full */
+    font-weight: bold;
+    /* font-bold */
+    text-transform: uppercase;
+    /* uppercase */
+    font-size: 14px;
+}

@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sqlserverdb
+  # namespace: fiap
+  labels:
+    app: sqlserverdb
+spec:
+  containers:
+    - env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: MSSQL_SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sqlserverdb-secret
+              key: SA_PASSWORD
+      image: mcr.microsoft.com/mssql/server:2022-latest
+      name: sqlserverdb
+      ports:
+        - containerPort: 1433
+      volumeMounts:
+        - name: mssqldb
+          mountPath: /var/opt/mssql/data
+      livenessProbe:
+        exec:
+          command:
+            - ls
+            - /var/opt/mssql/data
+        initialDelaySeconds: 10
+        periodSeconds: 30
+  volumes:
+    - name: mssqldb
+      persistentVolumeClaim:
+        claimName: bd-fiap-5-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sqlserverdb
+  #namespace: mssql
+spec:
+  type: NodePort
+  ports:
+    - port: 1433
+      nodePort: 30080
+  selector:
+    app: sqlserverdb
