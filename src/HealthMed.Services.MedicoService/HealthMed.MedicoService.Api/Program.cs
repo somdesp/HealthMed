@@ -1,6 +1,8 @@
 using HealthMed.MedicoService.Application;
 using HealthMed.MedicoService.Application.Settings;
 using HealthMed.MedicoService.Infrastructure;
+using HealthMed.MedicoService.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,11 +10,28 @@ builder.Services.AddSecurity(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
-//app.UseHttpsRedirection();
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseHttpsRedirection();
+
+// Faz o banco aplicar migrations automáticas
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<MedicoContext>();
+    db.Database.Migrate();
+}
+
+app.MapControllers();
 
 app.Run();

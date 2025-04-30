@@ -2,7 +2,6 @@ using HealthMed.PacienteService.Application;
 using HealthMed.PacienteService.Application.Settings;
 using HealthMed.PacienteService.Infrastructure;
 using HealthMed.PacienteService.Infrastructure.Persistence;
-using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
