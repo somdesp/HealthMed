@@ -1,8 +1,8 @@
-﻿using HealthMed.MedicoService.Application.Contracts.Persistence;
+﻿using HealthMed.BuildingBlocks.Configurations;
+using HealthMed.MedicoService.Application.Contracts.Persistence;
 using HealthMed.MedicoService.Application.Dtos;
 using HealthMed.MedicoService.Application.Exceptions;
 using HealthMed.MedicoService.Application.Settings;
-using HealthMed.MedicoService.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -16,6 +16,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, MedicoLoginResponse
 {
     private readonly IMedicoRepository _medicoRepository;
     private readonly TokenSettings _tokenSettings;
+    const string ChaveSenha = "HealthMed#2025";
 
     public LoginQueryHandler(IMedicoRepository medicoRepository, IOptions<TokenSettings> tokenSettings)
     {
@@ -25,15 +26,23 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, MedicoLoginResponse
 
     public async Task<MedicoLoginResponseDto> Handle(LoginQuery request, CancellationToken cancellationToken)
     {
-        var result = await _medicoRepository.FirstOrDefaultAsync(e => e.Ativo && e.Crm == request.Crm && e.Senha == request.Senha) 
+        string senhaCriptografada = CryptoHelper.CriptografarSenha(request.Senha, ChaveSenha);
+        var result = await _medicoRepository.FirstOrDefaultAsync(e => e.Ativo && e.Crm == request.Crm && e.Senha == senhaCriptografada)
             ?? throw new ValidationException("Login", "CRM e/ou senha inválido(s)");
 
-        var accessToken = await GenerateJwtToken(result);
+        ClaimsIdentity claimsIdentity = new ClaimsIdentity(
+               [
+                   new Claim(ClaimTypes.NameIdentifier, result.Id.ToString()),
+                    new Claim(ClaimTypes.Name, result.Nome),
+                    new Claim(ClaimTypes.Role, "Medico")
+               ]);
+
+        var accessToken = await GenerateJwtToken(claimsIdentity);
 
         return new MedicoLoginResponseDto(accessToken);
     }
 
-    private async Task<string> GenerateJwtToken(Medico medico)
+    private async Task<string> GenerateJwtToken(ClaimsIdentity claimsIdentity)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = await Task.Run(() =>
@@ -41,12 +50,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, MedicoLoginResponse
             var key = Encoding.ASCII.GetBytes(_tokenSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(
-                [
-                    new Claim(ClaimTypes.NameIdentifier, medico.Id.ToString()),
-                    new Claim(ClaimTypes.Name, medico.Nome),
-                    new Claim(ClaimTypes.Role, "Medico")
-                ]),
+                Subject = claimsIdentity,
                 Expires = DateTime.Now.AddHours(_tokenSettings.ExpiracaoHoras),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

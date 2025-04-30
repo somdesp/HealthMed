@@ -30,11 +30,11 @@ namespace HealthMed.PacienteService.Infrastructure.Migrations
 
             migrationBuilder.Sql(@$"INSERT INTO Pacientes (Nome, Senha, Ativo,Cpf,DataCriacao)
                         VALUES
-                        ('João Silva', 'dGAOvEPqp5A+l4C+wuwOng==', 1,'02268881008',GetDate()),
-                        ('Maria Oliveira', 'dGAOvEPqp5A+l4C+wuwOng==', 1,'04052748077',GetDate()),
-                        ('Carlos Souza', 'dGAOvEPqp5A+l4C+wuwOng==', 1,'15960236001',GetDate()),
-                        ('Ana Lima', 'dGAOvEPqp5A+l4C+wuwOng==', 1,'41326936000',GetDate()),
-                        ('Pedro Santos', 'dGAOvEPqp5A+l4C+wuwOng==', 1,'85287380003',GetDate());");
+                        ('João Silva', 'dIMkGdpIuy0uLoqHOSC3Bw==', 1,'02268881008',GetDate()),
+                        ('Maria Oliveira', 'dIMkGdpIuy0uLoqHOSC3Bw==', 1,'04052748077',GetDate()),
+                        ('Carlos Souza', 'dIMkGdpIuy0uLoqHOSC3Bw==', 1,'15960236001',GetDate()),
+                        ('Ana Lima', 'dIMkGdpIuy0uLoqHOSC3Bw==', 1,'41326936000',GetDate()),
+                        ('Pedro Santos', 'dIMkGdpIuy0uLoqHOSC3Bw==', 1,'85287380003',GetDate());");
         }
 
         /// <inheritdoc />

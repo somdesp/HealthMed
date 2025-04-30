@@ -1,4 +1,5 @@
-﻿using HealthMed.PacienteService.Application.Contracts.Persistence;
+﻿using HealthMed.BuildingBlocks.Configurations;
+using HealthMed.PacienteService.Application.Contracts.Persistence;
 using HealthMed.PacienteService.Application.Dtos;
 using HealthMed.PacienteService.Application.Exceptions;
 using HealthMed.PacienteService.Application.Settings;
@@ -16,6 +17,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, PacienteLoginRespon
 {
     private readonly IPacienteRepository _pacienteRepository;
     private readonly TokenSettings _tokenSettings;
+    const string ChaveSenha = "HealthMed#2025";
 
     public LoginQueryHandler(IPacienteRepository pacienteRepository, IOptions<TokenSettings> tokenSettings)
     {
@@ -25,9 +27,9 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, PacienteLoginRespon
 
     public async Task<PacienteLoginResponseDto> Handle(LoginQuery request, CancellationToken cancellationToken)
     {
-        string senhaCriptografada = CryptoHelper.CriptografarSenha(request.Senha, "HelthMed#2025");
+        string senhaCriptografada = CryptoHelper.CriptografarSenha(request.Senha, ChaveSenha);
         var result = await _pacienteRepository.FirstOrDefaultAsync(e => e.Ativo && e.Cpf.Numero == request.Cpf && e.Senha == senhaCriptografada)
-            ?? throw new ValidationException("Login", "CRM e/ou senha inválido(s)");
+            ?? throw new ValidationException("Login", "CPF e/ou senha inválido(s)");
 
         var accessToken = await GenerateJwtToken(result);
 
