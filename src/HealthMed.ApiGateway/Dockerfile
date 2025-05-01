@@ -8,4 +8,4 @@ ENV ASPNETCORE_ENVIRONMENT=Docker
 COPY ["bin/Release/net8.0", "app/"]
 
 WORKDIR /app
-ENTRYPOINT ["dotnet", "HealthMed.PacienteService.Api.dll"]
+ENTRYPOINT ["dotnet", "HealthMed.ApiGateway.dll"]
