@@ -1,36 +1,129 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
+name: CI - Actions GITHUB Hackathon
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
+    paths: 
+      - '**.csproj'
   pull_request:
     branches: [ "main" ]
+    paths: 
+      - '**.csproj'
 
+      
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
+env:
+  DOTNET_VERSION: '8.0' # The .NET SDK version to use  
+  DOTNET_INSTALL_DIR: "%LocalAppData%/Microsoft/dotnet"  
+  
+jobs: 
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    name: Build Aplicação    
+    runs-on: self-hosted
+    steps:     
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Build API Gateway
+        run: dotnet publish ./src/HealthMed.ApiGateway --configuration Release
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Build API AGENDAMENTO
+        run: dotnet publish ./src/HealthMed.Service.Agendamento/HealthMed.AgendamentoService.Api --configuration Release
+
+      - name: Build API Medico
+        run: dotnet publish ./src/HealthMed.Service.Medico/HealthMed.MedicoService.Api --configuration Release
+
+      - name: Build API Paciente
+        run: dotnet publish ./src/HealthMed.Services.Paciente/HealthMed.PacienteService.Api --configuration Release
+
+
+      - name: Doker Login
+        uses: docker/login-action@v3.3.0
+        with:
+          # Username used to log against the Docker registry
+          username: 'somdesp'
+          # Password or personal access token used to log against the Docker registry
+          password: ${{secrets.DOCKERHUB}}   
+
+      - name: Push Docker images (API GATEWAY)
+        uses: docker/build-push-action@v6.9.0
+        with:
+          context: ./src/HealthMed.ApiGateway
+          tags: 'somdesp/healthmed:api_gateway_latest'
+          push: true
+
+      - name: Push Docker images (API AGENDAMENTO)
+        uses: docker/build-push-action@v6.9.0
+        with:
+          context: ./src/HealthMed.Service.Agendamento/HealthMed.AgendamentoService.Api
+          tags: 'somdesp/healthmed:api_agendamento_latest'
+          push: true
+
+      - name: Push Docker images (API MEDICO)
+        uses: docker/build-push-action@v6.9.0
+        with:
+          context: ./src/HealthMed.Service.Medico/HealthMed.MedicoService.Api
+          tags: 'somdesp/healthmed:api_medico_latest'
+          push: true
+
+      - name: Push Docker images (API PACIENTE)
+        uses: docker/build-push-action@v6.9.0
+        with:
+          context: ./src/HealthMed.Services.Paciente/HealthMed.PacienteService.Api
+          tags: 'somdesp/healthmed:api_paciente_latest'
+          push: true      
+
+  # test:
+  #   name: Testes Aplicação
+  #   runs-on: self-hosted
+  #   needs: build
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - name: Setup .NET Core
+  #     uses: actions/setup-dotnet@v3
+  #     with:
+  #       dotnet-version: ${{ env.DOTNET_VERSION }}
+
+  #   - name: Install dependencies
+  #     run: dotnet restore ./TESTS/FIAP.TECH.TESTS
+
+  #   - name: Build
+  #     run: dotnet build ./TESTS/FIAP.TECH.TESTS --configuration Release --no-restore
+      
+  #   - name: Test
+  #     run: dotnet test ./TESTS/FIAP.TECH.TESTS --no-restore --verbosity normal
+
+  deploy_Kubernets:
+          name: Deploy Kubernets Aplicação
+          runs-on: self-hosted
+          #needs: [build, test]
+          needs: [build]
+          steps:      
+          - name: Check out the repository to the runner
+            uses: actions/checkout@v4 
+
+          - name: Deploy the application in Kubernets
+            run: |
+              kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
+              kubectl apply -f kubernetes/metrics-server.yaml
+              kubectl apply -f kubernetes/rabbitmq-deployment.yaml
+              kubectl apply -f kubernetes/api-configmap.yaml
+              kubectl apply -f kubernetes/sql-secret.yaml
+              kubectl apply -f kubernetes/api-agendamento-secret.yaml
+              kubectl apply -f kubernetes/api-medico-secret.yaml
+              kubectl apply -f kubernetes/api-paciente-secret.yaml
+              kubectl apply -f kubernetes/pv-vol.yaml
+              kubectl apply -f kubernetes/pvc-vol.yaml
+              kubectl apply -f kubernetes/sqlserverdb-deployment.yaml
+              kubectl apply -f kubernetes/api-gateway-deployment.yaml
+              kubectl apply -f kubernetes/api-agendamento-deployment.yaml
+              kubectl apply -f kubernetes/api-medico-deployment.yaml
+              kubectl apply -f kubernetes/api-paciente-deployment.yaml
+              kubectl apply -f kubernetes/prometheus-config.yaml
+              kubectl apply -f kubernetes/prometheus-deployment.yaml
+              kubectl apply -f kubernetes/prometheus-service.yaml
+              kubectl apply -f kubernetes/grafana-deployment.yaml
+              kubectl apply -f kubernetes/grafana-service.yaml

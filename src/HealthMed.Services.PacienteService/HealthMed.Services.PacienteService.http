@@ -1,6 +1,0 @@
-@HealthMed.Services.PacienteService_HostAddress = http://localhost:5047
-
-GET {{HealthMed.Services.PacienteService_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

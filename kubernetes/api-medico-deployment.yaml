@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: medico_service_latest
+  # namespace: fiap
+  labels:
+    app: medico_service_latest
+  annotations:
+    autor: "Grupo 23"
+    app-version: "4.0"
+    description: "API responsavel pelo medico"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: medico_service_latest
+  template:
+    metadata:
+      labels:
+        app: medico_service_latest
+    spec:
+      containers:
+        - image: somdesp/healthmed:api_doctor_latest
+          name: medico_service_latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+          env:
+            - name: ConnectionStrings__MedicoConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: api-medico-secret
+                  key: MedicoConnectionString
+
+            - name: ConnectionStrings__RabbitMq
+              valueFrom:
+                configMapKeyRef:
+                  name: apiserver-configmap
+                  key: RabbitMq
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: medico_service_latest
+  # namespace: fiap
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: 30085
+  selector:
+    app: medico_service_latest
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: medico_service_latest
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: medico_service_latest
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 40
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 40
