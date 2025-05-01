@@ -1,27 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-doctor-latest
+  name: api_agendamento_latest
   # namespace: fiap
   labels:
-    app: api-doctor-latest
-  annotations:
-    autor: "Grupo 23"
-    app-version: "4.0"
-    description: "API responsavel pelo doctor"
+    app: api_agendamento_latest
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: api-doctor-latest
+      app: api_agendamento_latest
   template:
     metadata:
       labels:
-        app: api-doctor-latest
+        app: api_agendamento_latest
     spec:
       containers:
-        - image: somdesp/fiap5:api_doctor_latest
-          name: api-doctor-latest
+        - image: somdesp/healthmed:api_agendamento_latest
+          name: api_agendamento_latest
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -33,11 +29,11 @@ spec:
               memory: "128Mi"
               cpu: "250m"
           env:
-            - name: ConnectionStrings__FiapConnection
+            - name: ConnectionStrings__AgendamentoConnectionString
               valueFrom:
                 secretKeyRef:
-                  name: apiserver-secret
-                  key: FiapConnection
+                  name: api-agendamento-secret
+                  key: AgendamentoConnectionString
 
             - name: ConnectionStrings__RabbitMq
               valueFrom:
@@ -49,25 +45,25 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: api-doctor-latest
+  name: api_agendamento_latest
   # namespace: fiap
 spec:
   type: NodePort
   ports:
     - port: 8080
-      nodePort: 30085
+      nodePort: 30083
   selector:
-    app: api-doctor-latest
+    app: api_agendamento_latest
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: api-doctor-latest
+  name: api_agendamento_latest
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: api-doctor-latest
+    name: api_agendamento_latest
   minReplicas: 2
   maxReplicas: 4
   metrics:

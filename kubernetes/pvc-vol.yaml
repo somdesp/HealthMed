@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: bd-fiap-5-pvc
+  name: bd-healthmed-pvc
 spec:
   accessModes:
     - ReadWriteOnce

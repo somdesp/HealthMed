@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-patient-latest
+  name: medico_service_latest
   # namespace: fiap
   labels:
-    app: api-patient-latest
+    app: medico_service_latest
   annotations:
     autor: "Grupo 23"
     app-version: "4.0"
-    description: "API responsavel pelo paciente"
+    description: "API responsavel pelo medico"
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: api-patient-latest
+      app: medico_service_latest
   template:
     metadata:
       labels:
-        app: api-patient-latest
+        app: medico_service_latest
     spec:
       containers:
-        - image: somdesp/fiap5:api_patient_latest
-          name: api-patient-latest
+        - image: somdesp/healthmed:api_doctor_latest
+          name: medico_service_latest
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -33,11 +33,11 @@ spec:
               memory: "128Mi"
               cpu: "250m"
           env:
-            - name: ConnectionStrings__FiapConnection
+            - name: ConnectionStrings__MedicoConnectionString
               valueFrom:
                 secretKeyRef:
-                  name: apiserver-secret
-                  key: FiapConnection
+                  name: api-medico-secret
+                  key: MedicoConnectionString
 
             - name: ConnectionStrings__RabbitMq
               valueFrom:
@@ -49,25 +49,25 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: api-patient-latest
+  name: medico_service_latest
   # namespace: fiap
 spec:
   type: NodePort
   ports:
     - port: 8080
-      nodePort: 30082
+      nodePort: 30085
   selector:
-    app: api-patient-latest
+    app: medico_service_latest
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: api-patient
+  name: medico_service_latest
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: api-patient-latest
+    name: medico_service_latest
   minReplicas: 2
   maxReplicas: 4
   metrics:
