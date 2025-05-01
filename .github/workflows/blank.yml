@@ -28,16 +28,16 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build API Gateway
-        run: dotnet publish ../src/HealthMed.ApiGateway --configuration Release
+        run: dotnet publish ./src/HealthMed.ApiGateway --configuration Release
 
       - name: Build API AGENDAMENTO
-        run: dotnet publish ../src/HealthMed.AgendamentoService.Api --configuration Release
+        run: dotnet publish ./src/HealthMed.AgendamentoService.Api --configuration Release
 
       - name: Build API Medico
-        run: dotnet publish ../src/HealthMed.MedicoService.Api --configuration Release
+        run: dotnet publish ./src/HealthMed.MedicoService.Api --configuration Release
 
       - name: Build API Paciente
-        run: dotnet publish ../src/HealthMed.PacienteService.Api --configuration Release
+        run: dotnet publish ./src/HealthMed.PacienteService.Api --configuration Release
 
 
       - name: Doker Login
@@ -51,28 +51,28 @@ jobs:
       - name: Push Docker images (API GATEWAY)
         uses: docker/build-push-action@v6.9.0
         with:
-          context: ../src/HealthMed.ApiGateway
+          context: ./src/HealthMed.ApiGateway
           tags: 'somdesp/healthmed:api_gateway_latest'
           push: true
 
       - name: Push Docker images (API AGENDAMENTO)
         uses: docker/build-push-action@v6.9.0
         with:
-          context: ../src/HealthMed.AgendamentoService.Api
+          context: ./src/HealthMed.AgendamentoService.Api
           tags: 'somdesp/healthmed:api_agendamento_latest'
           push: true
 
       - name: Push Docker images (API MEDICO)
         uses: docker/build-push-action@v6.9.0
         with:
-          context: ../src/HealthMed.MedicoService.Api
+          context: ./src/HealthMed.MedicoService.Api
           tags: 'somdesp/healthmed:api_medico_latest'
           push: true
 
       - name: Push Docker images (API PACIENTE)
         uses: docker/build-push-action@v6.9.0
         with:
-          context: ../src/HealthMed.PacienteService.Api
+          context: ./src/HealthMed.PacienteService.Api
           tags: 'somdesp/healthmed:api_paciente_latest'
           push: true      
 
