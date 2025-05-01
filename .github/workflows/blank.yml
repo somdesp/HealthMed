@@ -31,13 +31,13 @@ jobs:
         run: dotnet publish ./src/HealthMed.ApiGateway --configuration Release
 
       - name: Build API AGENDAMENTO
-        run: dotnet publish ./src/HealthMed.AgendamentoService.Api --configuration Release
+        run: dotnet publish ./src/HealthMed.Service.Agendamento/HealthMed.AgendamentoService.Api --configuration Release
 
       - name: Build API Medico
-        run: dotnet publish ./src/HealthMed.MedicoService.Api --configuration Release
+        run: dotnet publish ./src/HealthMed.Service.Medico/HealthMed.MedicoService.Api --configuration Release
 
       - name: Build API Paciente
-        run: dotnet publish ./src/HealthMed.PacienteService.Api --configuration Release
+        run: dotnet publish ./src/HealthMed.Services.Paciente/HealthMed.PacienteService.Api --configuration Release
 
 
       - name: Doker Login
