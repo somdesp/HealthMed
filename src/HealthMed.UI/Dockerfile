@@ -13,6 +13,4 @@ FROM nginx:alpine
 VOLUME /var/cache/nginx
 
 COPY --from=node app/dist/app usr/share/nginx/html
-COPY nginx/nginx.dev.conf /etc/nginx/conf.d/default.conf
-
 EXPOSE 80
