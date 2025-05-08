@@ -1,16 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { PacienteService } from '../../core/services/paciente.service';
+import { Medico } from '../../core/model/medico';
 
 @Component({
   selector: 'app-paciente',
   standalone: true,
+  providers: [],
   imports: [CommonModule, RouterModule, FormsModule], // Importando o CommonModule para usar o pipe 'date'
   templateUrl: './paciente.component.html',
   styleUrl: './paciente.component.scss'
 })
 export class PacienteComponent {
+  constructor(private _pacienteService: PacienteService, private router: Router) { }
+
+  medicos: Medico[] = [];
+
+
   filtro: string = '';
   consultas = [
     {
@@ -39,5 +47,13 @@ export class PacienteComponent {
 
   visualizar(consulta: any) {
     alert(`Visualizando consulta com ${consulta.medico}`);
+  }
+
+  BuscaMedico() {
+    this._pacienteService.BuscaMedicos(this.filtro.toLowerCase()).subscribe({
+      next: (response: any) => {
+        this.medicos = response.medicoResponse;
+      }
+    });
   }
 }

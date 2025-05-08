@@ -5,20 +5,20 @@ using MassTransit;
 
 namespace HealthMed.MedicoService.Application.UseCases.Medicos.Events
 {
-    public partial class QueueBuscaMedicoConsumer : IConsumer<BuscaMedicoCommand>
+    public partial class QueueBuscaMedicoEspecialidadeConsumer : IConsumer<BuscaMedicoEspecialidadeCommand>
     {
         private readonly IMedicoRepository _medicoRepository;
         private readonly IMapper _mapper;
 
-        public QueueBuscaMedicoConsumer(IMedicoRepository medicoRepository, IMapper mapper)
+        public QueueBuscaMedicoEspecialidadeConsumer(IMedicoRepository medicoRepository, IMapper mapper)
         {
             _medicoRepository = medicoRepository;
             _mapper = mapper;
         }
 
-        public async Task Consume(ConsumeContext<BuscaMedicoCommand> context)
+        public async Task Consume(ConsumeContext<BuscaMedicoEspecialidadeCommand> context)
         {
-            var result = await _medicoRepository.BuscaMedico(context.Message.Nome);
+            var result = await _medicoRepository.BuscaEspecialidade(context.Message.Nome);
             var medicoResponse = new MedicosResponse(_mapper.Map<IEnumerable<MedicoResponse>>(result));
             await context.RespondAsync(medicoResponse);
         }

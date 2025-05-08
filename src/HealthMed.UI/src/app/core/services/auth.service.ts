@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { jwtDecode } from "jwt-decode";
 import { UserLogged } from '../model/currentUser';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -12,7 +13,7 @@ export class AuthService {
   private router = inject(Router);
 
   loginMedico(crm: string, senha: string): Observable<any> {
-    let apiUrl = 'https://localhost:44390/Medico/Login';
+    let apiUrl = `${environment.apiMedico}/Medico/Login`;
     return this.http.post<{ accessToken: string }>(apiUrl, {
       crm,
       senha
@@ -24,7 +25,7 @@ export class AuthService {
   }
 
   loginPaciente(cpf: string, senha: string): Observable<any> {
-    let apiUrl = 'https://localhost:44390/Paciente/Login';
+    let apiUrl = `${environment.apiMedico}/Paciente/Login`;
 
     return this.http.post<{ accessToken: string }>(apiUrl, {
       cpf,

@@ -11,25 +11,57 @@ namespace HealthMed.PacienteService.Api.Controllers
     [Authorize]
     public class PacienteController : ControllerBase
     {
-        private readonly IRequestClient<BuscaMedicoCommand> _requestClient;
+        private readonly IClientFactory _clientFactory;
 
-        public PacienteController(IRequestClient<BuscaMedicoCommand> requestClient)
+        public PacienteController(IClientFactory clientFactory)
         {
-            _requestClient = requestClient;
+            _clientFactory = clientFactory;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Login([FromBody] BuscaMedicoCommand query)
+        [HttpPost("BuscaMedico")]
+        public async Task<ActionResult> BuscaMedico([FromBody] BuscaMedicoCommand query)
         {
             try
             {
-                var response = await _requestClient.GetResponse<MedicoResponse>(query);
+                var client = _clientFactory.CreateRequestClient<BuscaMedicoCommand>();
+                var response = await client.GetResponse<MedicosResponse>(query);
                 return Ok(response.Message);
             }
             catch (ValidationException ex)
             {
-                return BadRequest(ex.Errors["Login"]);
+                return BadRequest(ex.Errors);
             }
         }
+
+        [HttpPost("BuscaEspecialidade")]
+        public async Task<ActionResult> BuscaEspecialidade([FromBody] BuscaMedicoEspecialidadeCommand query)
+        {
+            try
+            {
+                var client = _clientFactory.CreateRequestClient<BuscaMedicoEspecialidadeCommand>();
+                var response = await client.GetResponse<MedicosResponse>(query);
+                return Ok(response.Message);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Errors);
+            }
+        }
+
+        //[HttpGet("MedicosDisponiveis")]
+        //public async Task<ActionResult> MedicosDisponiveis()
+        //{
+        //    try
+        //    {
+        //        var client = _clientFactory.CreateRequestClient<BuscaMedicoEspecialidadeCommand>();
+        //        var response = await client.Create<MedicosResponse>();
+        //        return Ok(response.Message);
+        //    }
+        //    catch (ValidationException ex)
+        //    {
+        //        return BadRequest(ex.Errors);
+        //    }
+        //}
+
     }
 }

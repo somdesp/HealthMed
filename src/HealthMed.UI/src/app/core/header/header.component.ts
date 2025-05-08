@@ -31,7 +31,7 @@ interface TokenPayload {
         if (this.usuario.role == 'medico')
           this.logo = "Consultas Disponiveis "
         else
-          this.logo = "Consultas Marcadas"
+          this.logo = "Central Agendamentos"
 
       } catch {
         this.logout();

@@ -1,35 +1,88 @@
-<div class="tabela-container">
-    <!-- Filtro de Pesquisa -->
-    <div class="filtro">
-        <input type="text" [(ngModel)]="filtro" placeholder="Buscar por médico ou especialidade..."
-            class="input-pesquisa" />
-    </div>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+            role="tab" aria-controls="home" aria-selected="true">
+            Agendadas
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
+            role="tab" aria-controls="profile" aria-selected="false">
+            Medicos Disponiveis
+        </button>
+    </li>
+</ul>
 
-    <!-- Tabela de Consultas -->
-    <table class="tabela-consultas">
-        <thead>
-            <tr>
-                <th>Médico</th>
-                <th>Especialidade</th>
-                <th>Data</th>
-                <th>Status</th>
-                <th>Laudo</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let consulta of consultasFiltradas()">
-                <td>{{ consulta.medico }}</td>
-                <td>{{ consulta.especialidade }}</td>
-                <td>{{ consulta.data | date: 'dd/MM/yyyy HH:mm' }}</td>
-                <td>
-                    <span [class]="consulta.status">{{ consulta.status }}</span>
-                </td>
-                <td>{{ consulta.laudo ?? '—' }}</td>
-                <td>
-                    <button (click)="visualizar(consulta)">Visualizar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="tab-content mt-3" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="tabela-container">
+            <!-- Filtro de Pesquisa -->
+            <div class="filtro">
+                <input type="text" [(ngModel)]="filtro" placeholder="Buscar por médico ou especialidade..."
+                    class="input-pesquisa" />
+            </div>
+
+            <!-- Tabela de Consultas -->
+            <table class="tabela-consultas">
+                <thead>
+                    <tr>
+                        <th>Médico</th>
+                        <th>Especialidade</th>
+                        <th>Data</th>
+                        <th>Status</th>
+                        <th>Laudo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let consulta of consultasFiltradas()">
+                        <td>{{ consulta.medico }}</td>
+                        <td>{{ consulta.especialidade }}</td>
+                        <td>{{ consulta.data | date: 'dd/MM/yyyy HH:mm' }}</td>
+                        <td>
+                            <span [class]="consulta.status">{{ consulta.status }}</span>
+                        </td>
+                        <td>{{ consulta.laudo ?? '—' }}</td>
+                        <td>
+                            <button (click)="visualizar(consulta)">Visualizar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="tabela-container">
+            <!-- Filtro de Pesquisa -->
+            <div class="filtro input-group mb-3">
+                <input type="text" [(ngModel)]="filtro" placeholder="Buscar por médico ou especialidade..."
+                    class="input-pesquisa" />
+                <button class="btn btn-primary" (click)="BuscaMedico()" type="button">Buscar</button>
+            </div>
+
+            <!-- Tabela de Consultas -->
+            @if (medicos.length > 0) {
+            <table class="tabela-consultas">
+                <thead>
+                    <tr>
+                        <th>Médico</th>
+                        <th>CRM</th>
+                        <th>Especialidade</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let med of medicos">
+                        <td>{{ med.nome }}</td>
+                        <td>{{ med.crm }}</td>
+                        <td>{{ med.especialidade }}</td>
+                        <td>
+                            <button (click)="visualizar(med)">Visualizar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            }
+        </div>
+    </div>
 </div>
