@@ -1,20 +1,20 @@
-﻿using HealthMed.BuildingBlocks.Common;
-using HealthMed.MedicoService.Application.Contracts.Persistence;
-using HealthMed.MedicoService.Infrastructure.Persistence;
+﻿using HealthMed.AgendamentoService.Application.Contracts.Persistence;
+using HealthMed.AgendamentoService.Infrastructure.Persistence;
+using HealthMed.BuildingBlocks.Common;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace HealthMed.MedicoService.Infrastructure.Repositories;
+namespace HealthMed.AgendamentoService.Infrastructure.Repositories;
 
 public abstract class Repository<T> : IRepository<T> where T : EntityBase
 {
     protected DbSet<T> DbSet { get; set; }
-    protected readonly MedicoContext MedicoContext;
+    protected readonly AgendamentoContext AgendamentoContext;
 
-    public Repository(MedicoContext medicoContext)
+    public Repository(AgendamentoContext agendamentoContext)
     {
-        DbSet = medicoContext.Set<T>();
-        MedicoContext = medicoContext;
+        DbSet = agendamentoContext.Set<T>();
+        AgendamentoContext = agendamentoContext;
     }
 
     public async Task<IReadOnlyList<T>> GetAllAsync()
@@ -68,19 +68,19 @@ public abstract class Repository<T> : IRepository<T> where T : EntityBase
     public async Task<T> AddAsync(T entity)
     {
         DbSet.Add(entity);
-        await MedicoContext.SaveChangesAsync();
+        await AgendamentoContext.SaveChangesAsync();
         return entity;
     }
 
     public async Task UpdateAsync(T entity)
     {
-        MedicoContext.Entry(entity).State = EntityState.Modified;
-        await MedicoContext.SaveChangesAsync();
+        AgendamentoContext.Entry(entity).State = EntityState.Modified;
+        await AgendamentoContext.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(T entity)
     {
         DbSet.Remove(entity);
-        await MedicoContext.SaveChangesAsync();
+        await AgendamentoContext.SaveChangesAsync();
     }
 }

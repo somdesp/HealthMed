@@ -1,27 +1,25 @@
-﻿namespace HealthMed.BuildingBlocks.Contracts
+﻿namespace HealthMed.BuildingBlocks.Contracts;
+
+public record MedicoResponse(int Id, string Nome, string Especialidade, string CRM);
+
+public record MedicosResponse(IEnumerable<MedicoResponse> MedicoResponse);
+
+public class BuscaMedicoCommand
 {
-    public record MedicoResponse(int Id, string Nome, string Especialidade, string CRM);
+    public string Nome { get; }
 
-    public record MedicosResponse(IEnumerable<MedicoResponse> MedicoResponse);
-
-    public class BuscaMedicoCommand
+    public BuscaMedicoCommand(string nome)
     {
-        public string Nome { get; }
-
-        public BuscaMedicoCommand(string nome)
-        {
-            Nome = nome;
-        }
+        Nome = nome;
     }
+}
 
-    public class BuscaMedicoEspecialidadeCommand
+public class BuscaMedicoEspecialidadeCommand
+{
+    public string Nome { get; }
+
+    public BuscaMedicoEspecialidadeCommand(string nome)
     {
-        public string Nome { get; }
-
-        public BuscaMedicoEspecialidadeCommand(string nome)
-        {
-            Nome = nome;
-        }
+        Nome = nome;
     }
-
 }

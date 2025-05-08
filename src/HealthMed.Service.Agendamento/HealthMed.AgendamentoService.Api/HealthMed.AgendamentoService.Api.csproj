@@ -6,4 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HealthMed.AgendamentoService.Application\HealthMed.AgendamentoService.Application.csproj" />
+    <ProjectReference Include="..\HealthMed.AgendamentoService.Infrastructure\HealthMed.AgendamentoService.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

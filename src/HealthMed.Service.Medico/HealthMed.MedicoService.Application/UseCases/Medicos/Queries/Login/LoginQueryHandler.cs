@@ -33,7 +33,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, MedicoLoginResponse
                [
                    new Claim(ClaimTypes.NameIdentifier, result.Id.ToString()),
                     new Claim(ClaimTypes.Name, result.Nome),
-                    new Claim(ClaimTypes.Role, "Medico")
+                    new Claim(ClaimTypes.Role, "Medico"),
                ]);
 
         var accessToken = await GenerateJwtToken(claimsIdentity);

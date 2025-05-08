@@ -13,39 +13,41 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AgendamentoService", "Agend
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{93863734-32B5-43DB-8214-A4F75645572F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.ApiGateway", "HealthMed.ApiGateway\HealthMed.ApiGateway.csproj", "{CC7A6436-4CCD-4D8D-A18B-9A33A4CBD235}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.ApiGateway", "HealthMed.ApiGateway\HealthMed.ApiGateway.csproj", "{CC7A6436-4CCD-4D8D-A18B-9A33A4CBD235}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{66D901A7-EAB7-4012-A287-E44F0F4B342F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.BuildingBlocks", "HealthMed.BuildingBlocks\HealthMed.BuildingBlocks.csproj", "{A17241A6-0115-4D72-888D-91F790996960}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.BuildingBlocks", "HealthMed.BuildingBlocks\HealthMed.BuildingBlocks.csproj", "{A17241A6-0115-4D72-888D-91F790996960}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{A9688CF5-ED22-41BB-B375-D68FA826BA04}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "HealthMed.UI", "HealthMed.UI\HealthMed.UI.esproj", "{CF4DD11C-6649-444D-81CF-48E31324BD15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.AgendamentoService.Api", "HealthMed.Service.Agendamento\HealthMed.AgendamentoService.Api\HealthMed.AgendamentoService.Api.csproj", "{0F51264D-8C1D-404C-9E0F-229A75ABC90A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.AgendamentoService.Api", "HealthMed.Service.Agendamento\HealthMed.AgendamentoService.Api\HealthMed.AgendamentoService.Api.csproj", "{0F51264D-8C1D-404C-9E0F-229A75ABC90A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.AgendamentoService.Application", "HealthMed.Service.Agendamento\HealthMed.AgendamentoService.Application\HealthMed.AgendamentoService.Application.csproj", "{E3EBAF54-06C2-41AA-8E92-B6B482AB455D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.AgendamentoService.Application", "HealthMed.Service.Agendamento\HealthMed.AgendamentoService.Application\HealthMed.AgendamentoService.Application.csproj", "{E3EBAF54-06C2-41AA-8E92-B6B482AB455D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.AgendamentoService.Domain", "HealthMed.Service.Agendamento\HealthMed.AgendamentoService.Domain\HealthMed.AgendamentoService.Domain.csproj", "{5A30B6A7-3511-4A24-AE46-D7B87F309D17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.AgendamentoService.Domain", "HealthMed.Service.Agendamento\HealthMed.AgendamentoService.Domain\HealthMed.AgendamentoService.Domain.csproj", "{5A30B6A7-3511-4A24-AE46-D7B87F309D17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.MedicoService.Api", "HealthMed.Service.Medico\HealthMed.MedicoService.Api\HealthMed.MedicoService.Api.csproj", "{67604EDB-9A84-4062-8EB0-4B41D87701DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.MedicoService.Api", "HealthMed.Service.Medico\HealthMed.MedicoService.Api\HealthMed.MedicoService.Api.csproj", "{67604EDB-9A84-4062-8EB0-4B41D87701DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.MedicoService.Application", "HealthMed.Service.Medico\HealthMed.MedicoService.Application\HealthMed.MedicoService.Application.csproj", "{EE2EE685-35FD-4085-9D1F-8E41BFC4F79E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.MedicoService.Application", "HealthMed.Service.Medico\HealthMed.MedicoService.Application\HealthMed.MedicoService.Application.csproj", "{EE2EE685-35FD-4085-9D1F-8E41BFC4F79E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.MedicoService.Domain", "HealthMed.Service.Medico\HealthMed.MedicoService.Domain\HealthMed.MedicoService.Domain.csproj", "{EE0F040B-E1E8-4900-911C-F88CE544FE73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.MedicoService.Domain", "HealthMed.Service.Medico\HealthMed.MedicoService.Domain\HealthMed.MedicoService.Domain.csproj", "{EE0F040B-E1E8-4900-911C-F88CE544FE73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.MedicoService.Infrastructure", "HealthMed.Service.Medico\HealthMed.MedicoService.Infrastructure\HealthMed.MedicoService.Infrastructure.csproj", "{FB5B2FAA-ADC6-420B-8E8D-C1C353707B48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.MedicoService.Infrastructure", "HealthMed.Service.Medico\HealthMed.MedicoService.Infrastructure\HealthMed.MedicoService.Infrastructure.csproj", "{FB5B2FAA-ADC6-420B-8E8D-C1C353707B48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.PacienteService.Api", "HealthMed.Services.Paciente\HealthMed.PacienteService.Api\HealthMed.PacienteService.Api.csproj", "{E4B20CF5-2C2A-4E0A-8929-E4A268A483FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.PacienteService.Api", "HealthMed.Services.Paciente\HealthMed.PacienteService.Api\HealthMed.PacienteService.Api.csproj", "{E4B20CF5-2C2A-4E0A-8929-E4A268A483FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.PacienteService.Application", "HealthMed.Services.Paciente\HealthMed.PacienteService.Application\HealthMed.PacienteService.Application.csproj", "{893204F6-4E3D-45EB-B528-7B8EA352DA84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.PacienteService.Application", "HealthMed.Services.Paciente\HealthMed.PacienteService.Application\HealthMed.PacienteService.Application.csproj", "{893204F6-4E3D-45EB-B528-7B8EA352DA84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.PacienteService.Domain", "HealthMed.Services.Paciente\HealthMed.PacienteService.Domain\HealthMed.PacienteService.Domain.csproj", "{95D206E4-FA8D-42FF-865D-E760EBDDE5EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.PacienteService.Domain", "HealthMed.Services.Paciente\HealthMed.PacienteService.Domain\HealthMed.PacienteService.Domain.csproj", "{95D206E4-FA8D-42FF-865D-E760EBDDE5EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.PacienteService.Infrastructure", "HealthMed.Services.Paciente\HealthMed.PacienteService.Infrastructure\HealthMed.PacienteService.Infrastructure.csproj", "{8FEA9167-3358-40FB-8BC7-0F5823987333}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.PacienteService.Infrastructure", "HealthMed.Services.Paciente\HealthMed.PacienteService.Infrastructure\HealthMed.PacienteService.Infrastructure.csproj", "{8FEA9167-3358-40FB-8BC7-0F5823987333}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.MedicoService.Api.Test", "HealthMed.Service.Medico\HealthMed.MedicoService.Api.Test\HealthMed.MedicoService.Api.Test.csproj", "{1144A94E-A11D-4CB1-9449-D6A8F2277267}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthMed.MedicoService.Api.Test", "HealthMed.Service.Medico\HealthMed.MedicoService.Api.Test\HealthMed.MedicoService.Api.Test.csproj", "{1144A94E-A11D-4CB1-9449-D6A8F2277267}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthMed.AgendamentoService.Infrastructure", "HealthMed.Service.Agendamento\HealthMed.AgendamentoService.Infrastructure\HealthMed.AgendamentoService.Infrastructure.csproj", "{EFDFF965-E4B1-46C0-9E97-D48A3D573904}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +117,10 @@ Global
 		{1144A94E-A11D-4CB1-9449-D6A8F2277267}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1144A94E-A11D-4CB1-9449-D6A8F2277267}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1144A94E-A11D-4CB1-9449-D6A8F2277267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFDFF965-E4B1-46C0-9E97-D48A3D573904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFDFF965-E4B1-46C0-9E97-D48A3D573904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFDFF965-E4B1-46C0-9E97-D48A3D573904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFDFF965-E4B1-46C0-9E97-D48A3D573904}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +144,7 @@ Global
 		{95D206E4-FA8D-42FF-865D-E760EBDDE5EF} = {1BCE2DAF-C750-47CE-B6ED-31C90A71B1A9}
 		{8FEA9167-3358-40FB-8BC7-0F5823987333} = {1BCE2DAF-C750-47CE-B6ED-31C90A71B1A9}
 		{1144A94E-A11D-4CB1-9449-D6A8F2277267} = {6FAFDA5B-7912-4B89-905C-18C978CA0478}
+		{EFDFF965-E4B1-46C0-9E97-D48A3D573904} = {15C73CCE-6CFE-4C45-8888-748CE08BC72C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {65BF5392-D2EF-465C-97FB-6AADA1CB8B27}

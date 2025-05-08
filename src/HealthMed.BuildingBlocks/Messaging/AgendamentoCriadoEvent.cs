@@ -1,3 +1,3 @@
 ﻿namespace HealthMed.BuildingBlocks.Messaging;
 
-public record AgendamentoCriado(int PacienteId, int AgendaId);
+public record AgendamentoCriadoEvent(int PacienteId, int AgendaId) : IntegrationEvent;

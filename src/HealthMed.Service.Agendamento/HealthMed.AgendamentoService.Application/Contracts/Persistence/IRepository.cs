@@ -1,7 +1,7 @@
 ﻿using HealthMed.BuildingBlocks.Common;
 using System.Linq.Expressions;
 
-namespace HealthMed.MedicoService.Application.Contracts.Persistence;
+namespace HealthMed.AgendamentoService.Application.Contracts.Persistence;
 
 public interface IRepository<T> where T : EntityBase
 {
