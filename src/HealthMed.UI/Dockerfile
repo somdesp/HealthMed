@@ -1,18 +1,28 @@
-FROM node:17.9-alpine as node
+# Etapa 1: Build da aplicação Angular
+FROM node:18 AS build
+
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm install -g @angular/cli@14.2.9 && npm install --legacy-peer-deps
+# Copia os arquivos de dependência e instala
+COPY package*.json ./
+RUN npm install
 
+# Copia o restante do projeto e compila
 COPY . .
-RUN export NODE_OPTIONS=--openssl-legacy-provider && npm run build:docker
+RUN npm run build -- --configuration docker
 
-# CMD ["export", "NODE_OPTIONS=--openssl-legacy-provider", "&&", "ng", "serve", "--host", "0.0.0.0"]
-
+# Etapa 2: Servir arquivos com Nginx
 FROM nginx:alpine
-VOLUME /var/cache/nginx
 
-COPY --from=node app/dist/app usr/share/nginx/html
-COPY nginx/nginx.dev.conf /etc/nginx/conf.d/default.conf
+# Remove arquivos padrão do Nginx
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copia os arquivos da build Angular para o Nginx
+COPY --from=build /app/dist/health-med.ui /usr/share/nginx/html
+
+# (Opcional) Redirecionar rotas Angular para index.html
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

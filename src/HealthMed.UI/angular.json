@@ -58,6 +58,27 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "docker": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.docker.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
+                }
+              ],
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production"
@@ -71,11 +92,11 @@
             "production": {
               "buildTarget": "HealthMed.UI:build:production"
             },
-            "development": {
-              "buildTarget": "HealthMed.UI:build:development"
+            "docker": {
+              "buildTarget": "HealthMed.UI:build:docker"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "docker"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
