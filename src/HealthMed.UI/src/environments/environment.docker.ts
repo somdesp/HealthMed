@@ -1,0 +1,15 @@
+export const environment = {
+  production: false,
+  hmr: false,
+  dev: true,
+  authApi:'https://hml3.construmanager.com.br/auth',
+  apiUrl: 'https://hml3.construmanager.com.br/apicore',
+  urlSistema:'https://dev.construmanager.com.br',
+  authApiCp: 'https://hmlauthenticate.construpoint.com.br/api/Token',
+  clientId:'log96cla01068sdplla503slwwpmv7pq',
+  clientSecret:'ConstrumanagerLog@Construmanager2020',
+  email:'andreza.fernandes@e-construmarket.com.br',
+  senha:'123456',
+  grdApiUrl: 'https://api-grd.construmanager.com.br',
+  grdUrl: 'https://grd.construmanager.com.br',
+};

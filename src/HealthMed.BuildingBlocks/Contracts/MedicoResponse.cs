@@ -2,15 +2,25 @@
 {
     public record MedicoResponse(int Id, string Nome, string Especialidade, string CRM);
 
+    public record MedicosResponse(IEnumerable<MedicoResponse> MedicoResponse);
+
     public class BuscaMedicoCommand
     {
         public string Nome { get; }
-        public string Especialidade { get; }
 
-        public BuscaMedicoCommand(string nome, string especialidade)
+        public BuscaMedicoCommand(string nome)
         {
             Nome = nome;
-            Especialidade = especialidade;
+        }
+    }
+
+    public class BuscaMedicoEspecialidadeCommand
+    {
+        public string Nome { get; }
+
+        public BuscaMedicoEspecialidadeCommand(string nome)
+        {
+            Nome = nome;
         }
     }
 

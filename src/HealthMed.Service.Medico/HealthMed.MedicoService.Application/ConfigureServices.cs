@@ -26,6 +26,9 @@ public static class ConfigureServices
         services.AddMassTransit(opt =>
         {
             opt.AddConsumer<QueueBuscaMedicoConsumer>();
+            opt.AddConsumer<QueueBuscaMedicoEspecialidadeConsumer>();
+
+
 
             opt.SetKebabCaseEndpointNameFormatter();
 
