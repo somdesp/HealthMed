@@ -1,16 +1,10 @@
-FROM node:17.9-alpine as node
-WORKDIR /app
+FROM node:latest as build
+WORKDIR /usr/local/app
+COPY ./ /usr/local/app/
+RUN npm install
+RUN npm run build:docker
 
-COPY package.json package-lock.json ./
-RUN npm install -g @angular/cli@14.2.9 && npm install --legacy-peer-deps
-
-COPY . .
-RUN export NODE_OPTIONS=--openssl-legacy-provider && npm run build:docker
-
-# CMD ["export", "NODE_OPTIONS=--openssl-legacy-provider", "&&", "ng", "serve", "--host", "0.0.0.0"]
-
-FROM nginx:alpine
-VOLUME /var/cache/nginx
-
-COPY --from=node app/dist/app usr/share/nginx/html
+# Stage 2: Serve the application with Nginx
+FROM nginx:latest
+COPY --from=build /usr/local/app/dist/app /usr/share/nginx/html
 EXPOSE 80
