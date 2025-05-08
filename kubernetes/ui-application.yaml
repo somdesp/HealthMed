@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui_app_latest
+  labels:
+    app: ui_app_latest
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: ui_app_latest
+  template:
+    metadata:
+      labels:
+        app: ui_app_latest
+        service: ui_app_latest
+    spec:
+      containers:
+        - name: ui_app_latest
+          image: somdesp/healthmed:ui_app_latest
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: API_LINK
+              value: http://localhost:30083
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui_app_latest-service
+  labels:
+    app: ui_app_latest
+    service: ui_app_latest
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 80
+      protocol: TCP
+  selector:
+    service: ui_app_latest

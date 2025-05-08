@@ -76,6 +76,13 @@ jobs:
           tags: 'somdesp/healthmed:api_paciente_latest'
           push: true      
 
+      - name: Push Docker images (UI APP)
+        uses: docker/build-push-action@v6.9.0
+        with:
+          context: ./src/HealthMed.UI
+          tags: 'somdesp/healthmed:ui_app_latest'
+          push: true             
+
   # test:
   #   name: Testes Aplicação
   #   runs-on: self-hosted

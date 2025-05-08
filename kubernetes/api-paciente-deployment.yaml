@@ -55,7 +55,7 @@ spec:
   type: NodePort
   ports:
     - port: 8080
-      nodePort: 30082
+      nodePort: 30081
   selector:
     app: api_paciente_latest
 ---

@@ -6,7 +6,9 @@
     "start": "ng serve --host=127.0.0.1",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:docker": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --configuration docker"
+
   },
   "private": true,
   "dependencies": {

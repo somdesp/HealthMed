@@ -1,15 +1,19 @@
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
+
 export const environment = {
   production: false,
   hmr: false,
-  dev: true,
-  authApi:'https://hml3.construmanager.com.br/auth',
-  apiUrl: 'https://hml3.construmanager.com.br/apicore',
-  urlSistema:'https://dev.construmanager.com.br',
-  authApiCp: 'https://hmlauthenticate.construpoint.com.br/api/Token',
-  clientId:'log96cla01068sdplla503slwwpmv7pq',
-  clientSecret:'ConstrumanagerLog@Construmanager2020',
-  email:'andreza.fernandes@e-construmarket.com.br',
-  senha:'123456',
-  grdApiUrl: 'https://api-grd.construmanager.com.br',
-  grdUrl: 'https://grd.construmanager.com.br',
+  apiPaciente: 'https://localhost:30080',
+  apiMedico: 'https://localhost:30080'
 };
+
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
