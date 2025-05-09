@@ -1,23 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api_gateway_latest
+  name: api-gateway-latest
   # namespace: fiap
   labels:
-    app: api_gateway_latest
+    app: api-gateway-latest
+  annotations:
+    autor: "Grupo 23"
+    app-version: "4.0"
+    description: "API responsavel pelo gateway"
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: api_gateway_latest
+      app: api-gateway-latest
   template:
     metadata:
       labels:
-        app: api_gateway_latest
+        app: api-gateway-latest
     spec:
       containers:
         - image: somdesp/healthmed:api_gateway_latest
-          name: api_gateway_latest
+          name: api-gateway-latest
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -28,11 +32,24 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "250m"
+          env:
+            - name: ConnectionStrings__PacienteConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: api-paciente-secret
+                  key: PacienteConnectionString
+
+            - name: ConnectionStrings__RabbitMq
+              valueFrom:
+                configMapKeyRef:
+                  name: apiserver-configmap
+                  key: RabbitMq
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: api_gateway_latest
+  name: api-gateway-latest
   # namespace: fiap
 spec:
   type: NodePort
@@ -40,17 +57,17 @@ spec:
     - port: 8080
       nodePort: 30080
   selector:
-    app: api_gateway_latest
+    app: api-gateway-latest
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: api_gateway_latest
+  name: api-gateway
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: api_gateway_latest
+    name: api-gateway-latest
   minReplicas: 2
   maxReplicas: 4
   metrics:

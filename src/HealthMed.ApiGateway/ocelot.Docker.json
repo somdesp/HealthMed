@@ -2,7 +2,7 @@
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/Login",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -14,7 +14,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/paciente/BuscaMedico",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -26,7 +26,7 @@
     },
     {
       "DownstreamPathTemplate": "/api/paciente/BuscaEspecialidade",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -39,7 +39,7 @@
 
     {
       "DownstreamPathTemplate": "/api/Login",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -51,6 +51,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:30080"
+    "BaseUrl": "http://localhost:30080"
   }
 }

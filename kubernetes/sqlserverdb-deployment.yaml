@@ -43,6 +43,6 @@ spec:
   type: NodePort
   ports:
     - port: 1433
-      nodePort: 30080
+      nodePort: 31433
   selector:
     app: sqlserverdb

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ui_app_latest
+  name: ui-app-latest
   labels:
-    app: ui_app_latest
+    app: ui-app-latest
 spec:
   replicas: 2
   selector:
     matchLabels:
-      service: ui_app_latest
+      service: ui-app-latest
   template:
     metadata:
       labels:
-        app: ui_app_latest
-        service: ui_app_latest
+        app: ui-app-latest
+        service: ui-app-latest
     spec:
       containers:
-        - name: ui_app_latest
+        - name: ui-app-latest
           image: somdesp/healthmed:ui_app_latest
           ports:
             - containerPort: 80
@@ -28,10 +28,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ui_app_latest-service
+  name: ui-app-latest-service
   labels:
-    app: ui_app_latest
-    service: ui_app_latest
+    app: ui-app-latest
+    service: ui-app-latest
 spec:
   type: NodePort
   ports:
@@ -39,4 +39,4 @@ spec:
       targetPort: 80
       protocol: TCP
   selector:
-    service: ui_app_latest
+    service: ui-app-latest

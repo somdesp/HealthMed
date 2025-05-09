@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HealthMed.BuildingBlocks.Contracts.Responses;
 using HealthMed.MedicoService.Application.Dtos;
 using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.AlteraAgenda;
 using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.NovaAgenda;
@@ -16,5 +17,8 @@ public class MappingProfile : Profile
 
         CreateMap<Especialidade, EspecilidadeDto>();
         CreateMap<Medico, MedicoDto>();
+
+        CreateMap<Medico, BuscaMedicoResponse>().ForMember(dest => dest.Especialidade,
+            opts => opts.MapFrom(src => src.Especialidade!.Nome));
     }
 }

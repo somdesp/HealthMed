@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api_agendamento_latest
+  name: api-agendamento-latest
   # namespace: fiap
   labels:
-    app: api_agendamento_latest
+    app: api-agendamento-latest
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: api_agendamento_latest
+      app: api-agendamento-latest
   template:
     metadata:
       labels:
-        app: api_agendamento_latest
+        app: api-agendamento-latest
     spec:
       containers:
         - image: somdesp/healthmed:api_agendamento_latest
-          name: api_agendamento_latest
+          name: api-agendamento-latest
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -45,7 +45,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: api_agendamento_latest
+  name: api-agendamento-latest
   # namespace: fiap
 spec:
   type: NodePort
@@ -53,17 +53,17 @@ spec:
     - port: 8080
       nodePort: 30083
   selector:
-    app: api_agendamento_latest
+    app: api-agendamento-latest
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: api_agendamento_latest
+  name: api-agendamento-latest
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: api_agendamento_latest
+    name: api-agendamento-latest
   minReplicas: 2
   maxReplicas: 4
   metrics:

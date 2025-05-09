@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: medico_service_latest
+  name: api-doctor-latest
   # namespace: fiap
   labels:
-    app: medico_service_latest
+    app: api-doctor-latest
   annotations:
     autor: "Grupo 23"
     app-version: "4.0"
@@ -13,15 +13,15 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: medico_service_latest
+      app: api-doctor-latest
   template:
     metadata:
       labels:
-        app: medico_service_latest
+        app: api-doctor-latest
     spec:
       containers:
         - image: somdesp/healthmed:api_doctor_latest
-          name: medico_service_latest
+          name: api-doctor-latest
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -49,7 +49,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: medico_service_latest
+  name: api-doctor-latest
   # namespace: fiap
 spec:
   type: NodePort
@@ -57,17 +57,17 @@ spec:
     - port: 8080
       nodePort: 30082
   selector:
-    app: medico_service_latest
+    app: api-doctor-latest
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: medico_service_latest
+  name: api-doctor-latest
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: medico_service_latest
+    name: api-doctor-latest
   minReplicas: 2
   maxReplicas: 4
   metrics:

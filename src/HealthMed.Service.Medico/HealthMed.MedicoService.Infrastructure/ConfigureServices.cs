@@ -16,6 +16,9 @@ public static class ConfigureServices
             options.UseSqlServer(configuration.GetConnectionString("MedicoConnectionString"));
         });
         services.AddScoped<IMedicoRepository, MedicoRepository>();
+        services.AddScoped<IAgendaRepository, AgendaRepository>();
+
+
 
         return services;
     }

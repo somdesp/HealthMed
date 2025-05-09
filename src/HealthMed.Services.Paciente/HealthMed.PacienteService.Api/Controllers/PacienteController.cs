@@ -1,6 +1,9 @@
-﻿using HealthMed.BuildingBlocks.Contracts;
+﻿using HealthMed.BuildingBlocks.Contracts.Events;
+using HealthMed.BuildingBlocks.Contracts.Responses;
 using HealthMed.PacienteService.Application.Exceptions;
-using MassTransit;
+using HealthMed.PacienteService.Application.UseCases.Pacientes.Commands.BuscaEspecialidade;
+using HealthMed.PacienteService.Application.UseCases.Pacientes.Commands.BuscaMedico;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,21 +14,20 @@ namespace HealthMed.PacienteService.Api.Controllers
     [Authorize]
     public class PacienteController : ControllerBase
     {
-        private readonly IClientFactory _clientFactory;
+        private readonly IMediator _mediator;
 
-        public PacienteController(IClientFactory clientFactory)
+        public PacienteController(IMediator mediator)
         {
-            _clientFactory = clientFactory;
+            _mediator = mediator;
         }
 
         [HttpPost("BuscaMedico")]
-        public async Task<ActionResult> BuscaMedico([FromBody] BuscaMedicoCommand query)
+        public async Task<ActionResult> BuscaMedico([FromBody] BuscaMedicoCommandRequest query)
         {
             try
             {
-                var client = _clientFactory.CreateRequestClient<BuscaMedicoCommand>();
-                var response = await client.GetResponse<MedicosResponse>(query);
-                return Ok(response.Message);
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
             catch (ValidationException ex)
             {
@@ -34,13 +36,12 @@ namespace HealthMed.PacienteService.Api.Controllers
         }
 
         [HttpPost("BuscaEspecialidade")]
-        public async Task<ActionResult> BuscaEspecialidade([FromBody] BuscaMedicoEspecialidadeCommand query)
+        public async Task<ActionResult> BuscaEspecialidade([FromBody] BuscaEspecialidadeCommandRequest query)
         {
             try
             {
-                var client = _clientFactory.CreateRequestClient<BuscaMedicoEspecialidadeCommand>();
-                var response = await client.GetResponse<MedicosResponse>(query);
-                return Ok(response.Message);
+                var response = await _mediator.Send(query);
+                return Ok(response);
             }
             catch (ValidationException ex)
             {
