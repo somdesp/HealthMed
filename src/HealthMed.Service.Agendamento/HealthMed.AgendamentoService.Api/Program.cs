@@ -1,34 +1,50 @@
+using HealthMed.AgendamentoService.Application;
+using HealthMed.AgendamentoService.Infrastructure;
+using HealthMed.AgendamentoService.Infrastructure.Persistence;
+using HealthMed.BuildingBlocks.Configurations;
+using Microsoft.EntityFrameworkCore;
+using Prometheus;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddSecurity(builder.Configuration);
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+//builder.Services.AddMassTransitExtensionDefault(builder.Configuration);
+builder.Services.AddMassTransitExtension(builder.Configuration);
+
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerConfiguration();
 
 var app = builder.Build();
+app.UseMetricServer();
 
 // Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AgendamentoContext>();
+    db.Database.Migrate();
+}
+
+app.UseRouting();
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.UseAuthentication();
+app.UseAuthorization();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
+app.MapControllers();
+
+app.UseHttpMetrics();
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
