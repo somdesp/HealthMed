@@ -8,11 +8,6 @@ public class PacienteContextFactory : IDesignTimeDbContextFactory<PacienteContex
 {
     private readonly IConfiguration _configuration;
 
-    public PacienteContextFactory()
-    {
-        
-    }
-
     public PacienteContextFactory(IConfiguration configuration)
     {
         _configuration = configuration;

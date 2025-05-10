@@ -1,15 +1,23 @@
-﻿//using Microsoft.EntityFrameworkCore;
-//using Microsoft.EntityFrameworkCore.Design;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
-//namespace HealthMed.AgendamentoService.Infrastructure.Persistence;
+namespace HealthMed.AgendamentoService.Infrastructure.Persistence;
 
-//public class AgendamentoContextFactory : IDesignTimeDbContextFactory<AgendamentoContext>
-//{
-//    public AgendamentoContext CreateDbContext(string[] args)
-//    {
-//        var optionsBuilder = new DbContextOptionsBuilder<AgendamentoContext>();
-//        optionsBuilder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Initial Catalog=MedicoDb;Integrated Security=True;MultipleActiveResultSets=True");
+public class AgendamentoContextFactory : IDesignTimeDbContextFactory<AgendamentoContext>
+{
+    private readonly IConfiguration _configuration;
 
-//        return new AgendamentoContext(optionsBuilder.Options);
-//    }
-//}
+    public AgendamentoContextFactory(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+    public AgendamentoContext CreateDbContext(string[] args)
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<AgendamentoContext>();
+        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("AgendamentoConnectionString"));
+
+        return new AgendamentoContext(optionsBuilder.Options);
+
+    }
+}

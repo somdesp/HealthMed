@@ -1,5 +1,8 @@
 ﻿using FluentValidation;
+using HealthMed.BuildingBlocks.Authorization;
+using HealthMed.BuildingBlocks.Configurations.Behaviors;
 using MassTransit;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -17,6 +20,10 @@ public static class ConfigureServices
         {
             conf.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
         });
+
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+
+        services.AddScoped<IAppUsuario, AppUsuario>();
 
         return services;
     }
