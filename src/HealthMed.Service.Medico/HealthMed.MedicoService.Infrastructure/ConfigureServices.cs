@@ -12,13 +12,11 @@ public static class ConfigureServices
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<MedicoContext>(options =>
-        {
-            options.UseSqlServer(configuration.GetConnectionString("MedicoConnectionString"));
-        });
+                                options.UseSqlServer(configuration.GetConnectionString("MedicoConnectionString")),
+    ServiceLifetime.Scoped);
+
         services.AddScoped<IMedicoRepository, MedicoRepository>();
         services.AddScoped<IAgendaRepository, AgendaRepository>();
-
-
 
         return services;
     }

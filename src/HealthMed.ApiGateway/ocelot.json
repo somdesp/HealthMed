@@ -13,27 +13,27 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/paciente/BuscaMedico",
+      "DownstreamPathTemplate": "/api/medico/BuscaMedico",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44391
+          "Port": 44392
         }
       ],
-      "UpstreamPathTemplate": "/paciente/BuscaMedico",
+      "UpstreamPathTemplate": "/BuscaMedico",
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/paciente/BuscaEspecialidade",
+      "DownstreamPathTemplate": "/api/medico/BuscaEspecialidade",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 44391
+          "Port": 44392
         }
       ],
-      "UpstreamPathTemplate": "/paciente/BuscaEspecialidade",
+      "UpstreamPathTemplate": "/BuscaEspecialidade",
       "UpstreamHttpMethod": [ "POST" ]
     },
 
@@ -48,6 +48,45 @@
       ],
       "UpstreamPathTemplate": "/medico/Login",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Agenda/",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44392
+        }
+      ],
+      "UpstreamPathTemplate": "/medico/BuscaAgendas/",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Agenda",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44392
+        }
+      ],
+      "UpstreamPathTemplate": "/medico/NovaAgenda",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Agenda/{agendaId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44392
+        }
+      ],
+      "UpstreamPathTemplate": "/medico/AlteraAgenda/{agendaId}",
+      "UpstreamHttpMethod": [ "PUT" ]
     }
   ],
   "GlobalConfiguration": {

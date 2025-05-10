@@ -6,11 +6,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HealthMed.MedicoService.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class CriaMedicoDb : Migration
+    public partial class Create_BD_Medico : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AgendaMedico",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DataHora = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Reservada = table.Column<bool>(type: "bit", nullable: false),
+                    MedicoId = table.Column<int>(type: "int", nullable: false),
+                    DataCriacao = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AgendaMedico", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Especialidades",
                 columns: table => new
@@ -34,6 +50,7 @@ namespace HealthMed.MedicoService.Infrastructure.Migrations
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Crm = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Senha = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ValorConsulta = table.Column<int>(type: "int", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     EspecialidadeId = table.Column<int>(type: "int", nullable: false),
                     DataCriacao = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -54,7 +71,6 @@ namespace HealthMed.MedicoService.Infrastructure.Migrations
                 table: "Medicos",
                 column: "EspecialidadeId");
 
-
             migrationBuilder.Sql(@$"INSERT INTO Especialidades (Nome,DataCriacao) VALUES
                             ('Clínico Geral',GetDate()),
                             ('Cardiologia',GetDate()),
@@ -62,22 +78,25 @@ namespace HealthMed.MedicoService.Infrastructure.Migrations
                             ('Pediatria',GetDate()),
                             ('Ortopedia',GetDate());");
 
-            migrationBuilder.Sql(@$"INSERT INTO Medicos (Nome, EspecialidadeId, Senha, Crm, Ativo,DataCriacao) VALUES
-                            ('Dra. Ana Souza', 1, 'dIMkGdpIuy0uLoqHOSC3Bw==', '12345', 1,GetDate()),
-                            ('Dr. Bruno Lima', 2, 'dIMkGdpIuy0uLoqHOSC3Bw==', '23456', 1,GetDate()),
-                            ('Dra. Camila Ribeiro', 3, 'dIMkGdpIuy0uLoqHOSC3Bw==', '34567', 1,GetDate()),
-                            ('Dr. Daniel Almeida', 4, 'dIMkGdpIuy0uLoqHOSC3Bw==', '45678', 1,GetDate()),
-                            ('Dra. Elisa Martins', 5, 'dIMkGdpIuy0uLoqHOSC3Bw==', '56789', 1,GetDate()),
-                            ('Dr. Felipe Costa', 1, 'dIMkGdpIuy0uLoqHOSC3Bw==', '67890', 1,GetDate()),
-                            ('Dra. Gabriela Nunes', 2, 'dIMkGdpIuy0uLoqHOSC3Bw==', '78901', 1,GetDate()),
-                            ('Dr. Henrique Prado', 3, 'dIMkGdpIuy0uLoqHOSC3Bw==', '89012', 1,GetDate()),
-                            ('Dra. Isabela Tavares', 4, 'dIMkGdpIuy0uLoqHOSC3Bw==', '90123', 1,GetDate()),
-                            ('Dr. João Mendes', 5, 'dIMkGdpIuy0uLoqHOSC3Bw==', '01234', 1,GetDate());");
+            migrationBuilder.Sql(@$"INSERT INTO Medicos (Nome, EspecialidadeId, Senha, Crm, ValorConsulta, Ativo,DataCriacao) VALUES
+                            ('Dra. Ana Souza', 1, 'dIMkGdpIuy0uLoqHOSC3Bw==', '12345',300, 1,GetDate()),
+                            ('Dr. Bruno Lima', 2, 'dIMkGdpIuy0uLoqHOSC3Bw==', '23456',500, 1,GetDate()),
+                            ('Dra. Camila Ribeiro', 3, 'dIMkGdpIuy0uLoqHOSC3Bw==', '34567',600, 1,GetDate()),
+                            ('Dr. Daniel Almeida', 4, 'dIMkGdpIuy0uLoqHOSC3Bw==', '45678',350, 1,GetDate()),
+                            ('Dra. Elisa Martins', 5, 'dIMkGdpIuy0uLoqHOSC3Bw==', '56789',920, 1,GetDate()),
+                            ('Dr. Felipe Costa', 1, 'dIMkGdpIuy0uLoqHOSC3Bw==', '67890',410, 1,GetDate()),
+                            ('Dra. Gabriela Nunes', 2, 'dIMkGdpIuy0uLoqHOSC3Bw==', '78901',280, 1,GetDate()),
+                            ('Dr. Henrique Prado', 3, 'dIMkGdpIuy0uLoqHOSC3Bw==', '89012',320, 1,GetDate()),
+                            ('Dra. Isabela Tavares', 4, 'dIMkGdpIuy0uLoqHOSC3Bw==', '90123',2500, 1,GetDate()),
+                            ('Dr. João Mendes', 5, 'dIMkGdpIuy0uLoqHOSC3Bw==', '01234',650, 1,GetDate());");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AgendaMedico");
+
             migrationBuilder.DropTable(
                 name: "Medicos");
 

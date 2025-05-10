@@ -1,4 +1,6 @@
-﻿using HealthMed.MedicoService.Domain.Entities;
+﻿using HealthMed.BuildingBlocks.Messaging;
+using HealthMed.MedicoService.Domain.Entities;
+using HealthMed.MedicoServiceService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace HealthMed.MedicoService.Infrastructure.Persistence;
@@ -16,4 +18,6 @@ public class MedicoContext : DbContext
 
     public DbSet<Medico> Medicos { get; set; }
     public DbSet<Especialidade> Especialidades { get; set; }
+    public DbSet<AgendaMedico> AgendaMedico { get; set; }
+
 }

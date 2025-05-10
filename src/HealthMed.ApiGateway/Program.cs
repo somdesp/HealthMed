@@ -1,8 +1,13 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"ocelot.{environment}.json", optional: true, reloadOnChange: true);
 
 builder.Services.AddOcelot(builder.Configuration);
 

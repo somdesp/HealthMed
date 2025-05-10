@@ -2,10 +2,8 @@
 {
     public class MedicoDto
     {
-        public int Id { get; set; }
-        public string? Nome { get; set; }
-        public string? Crm { get; set; }
-
-        public EspecilidadeDto? Especilidade { get; set; }
+        public required string Nome { get; set; }
+        public required string Crm { get; set; }
+        public EspecialidadeDto? Especialidade { get; set; }
     }
 }

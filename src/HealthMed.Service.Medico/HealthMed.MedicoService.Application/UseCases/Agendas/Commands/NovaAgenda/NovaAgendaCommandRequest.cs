@@ -4,4 +4,5 @@ namespace HealthMed.MedicoService.Application.UseCases.Agendas.Commands.NovaAgen
 public class NovaAgendaCommandRequest : IRequest<bool>
 {
     public DateTime DataHora { get; set; }
+    public int MedicoId { get; set; }
 }

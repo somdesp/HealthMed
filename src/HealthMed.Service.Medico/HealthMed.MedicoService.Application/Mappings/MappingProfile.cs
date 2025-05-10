@@ -15,10 +15,11 @@ public class MappingProfile : Profile
         CreateMap<NovaAgendaCommandRequest, AgendaMedico>();
         CreateMap<AlteraAgendaCommandRequest, AgendaMedico>();
 
-        CreateMap<Especialidade, EspecilidadeDto>();
+        CreateMap<Especialidade, EspecialidadeDto>();
         CreateMap<Medico, MedicoDto>();
 
-        CreateMap<Medico, BuscaMedicoResponse>().ForMember(dest => dest.Especialidade,
-            opts => opts.MapFrom(src => src.Especialidade!.Nome));
+        CreateMap<AgendaMedico, AgendaDisponivelDto>();
+
+
     }
 }

@@ -67,7 +67,7 @@ public abstract class Repository<T> : IRepository<T> where T : EntityBase
 
     public async Task<T> AddAsync(T entity)
     {
-        DbSet.Add(entity);
+        await DbSet.AddAsync(entity);
         await MedicoContext.SaveChangesAsync();
         return entity;
     }

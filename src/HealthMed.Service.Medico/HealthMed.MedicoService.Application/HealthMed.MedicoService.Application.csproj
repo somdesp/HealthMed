@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Authentication\" />
-    <Folder Include="UseCases\Medicos\Commands\" />
+    <Folder Include="UseCases\Medicos\Events\" />
   </ItemGroup>
 
   <ItemGroup>

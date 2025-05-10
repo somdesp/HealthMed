@@ -1,26 +1,26 @@
-﻿using HealthMed.PacienteService.Application.Exceptions;
-using HealthMed.PacienteService.Application.UseCases.Pacientes.Commands.BuscaEspecialidade;
-using HealthMed.PacienteService.Application.UseCases.Pacientes.Commands.BuscaMedico;
+﻿using HealthMed.MedicoService.Application.Exceptions;
+using HealthMed.MedicoService.Application.UseCases.Medicos.Commands.BuscaEspecialidade;
+using HealthMed.MedicoService.Application.UseCases.Medicos.Commands.BuscaMedico;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HealthMed.PacienteService.Api.Controllers
+namespace HealthMed.MedicoService.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class PacienteController : ControllerBase
+    public class MedicoController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public PacienteController(IMediator mediator)
+        public MedicoController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost("BuscaMedico")]
-        public async Task<ActionResult> BuscaMedico([FromBody] BuscaMedicoPorNomeCommandRequest query)
+        public async Task<ActionResult> BuscaMedico([FromBody] BuscaMedicoPorNomeCommantRequest query)
         {
             try
             {

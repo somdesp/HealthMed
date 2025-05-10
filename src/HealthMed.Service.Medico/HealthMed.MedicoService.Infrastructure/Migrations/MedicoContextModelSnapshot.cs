@@ -71,11 +71,39 @@ namespace HealthMed.MedicoService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ValorConsulta")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EspecialidadeId");
 
                     b.ToTable("Medicos");
+                });
+
+            modelBuilder.Entity("HealthMed.MedicoServiceService.Domain.Entities.AgendaMedico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataHora")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MedicoId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Reservada")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AgendaMedico");
                 });
 
             modelBuilder.Entity("HealthMed.MedicoService.Domain.Entities.Medico", b =>

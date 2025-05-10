@@ -4,6 +4,7 @@ namespace HealthMed.MedicoService.Application.UseCases.Agendas.Commands.AlteraAg
 
 public class AlteraAgendaCommandRequest : IRequest
 {
-    public int AgendaId { get; set; }
+    public int Id { get; set; }
     public DateTime DataHora { get; set; }
+    public int MedicoId { get; set; }
 }

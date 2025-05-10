@@ -5,35 +5,35 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 30081
+          "Host": "api-paciente-latest",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/paciente/Login",
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/paciente/BuscaMedico",
+      "DownstreamPathTemplate": "/api/medico/BuscaMedico",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 30081
+          "Host": "api-doctor-latest",
+          "Port": 8080
         }
       ],
-      "UpstreamPathTemplate": "/paciente/BuscaMedico",
+      "UpstreamPathTemplate": "/BuscaMedico",
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/paciente/BuscaEspecialidade",
+      "DownstreamPathTemplate": "/api/medico/BuscaEspecialidade",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 30081
+          "Host": "api-doctor-latest",
+          "Port": 8080
         }
       ],
-      "UpstreamPathTemplate": "/paciente/BuscaEspecialidade",
+      "UpstreamPathTemplate": "/BuscaEspecialidade",
       "UpstreamHttpMethod": [ "POST" ]
     },
 
@@ -42,8 +42,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 30082
+          "Host": "api-doctor-latest",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/medico/Login",
@@ -51,6 +51,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:30080"
+    "BaseUrl": "http://api-gateway-latest:8080"
   }
 }

@@ -10,7 +10,7 @@ metadata:
     app-version: "4.0"
     description: "API responsavel pelo gateway"
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: api-gateway-latest
@@ -32,18 +32,6 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "250m"
-          env:
-            - name: ConnectionStrings__PacienteConnectionString
-              valueFrom:
-                secretKeyRef:
-                  name: api-paciente-secret
-                  key: PacienteConnectionString
-
-            - name: ConnectionStrings__RabbitMq
-              valueFrom:
-                configMapKeyRef:
-                  name: apiserver-configmap
-                  key: RabbitMq
 
 ---
 apiVersion: v1
@@ -55,6 +43,7 @@ spec:
   type: NodePort
   ports:
     - port: 8080
+      targetPort: 8080
       nodePort: 30080
   selector:
     app: api-gateway-latest

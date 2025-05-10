@@ -19,7 +19,7 @@ spec:
         - name: ui-app-latest
           image: somdesp/healthmed:ui_app_latest
           ports:
-            - containerPort: 80
+            - containerPort: 8080
               protocol: TCP
           env:
             - name: API_LINK
@@ -36,7 +36,7 @@ spec:
   type: NodePort
   ports:
     - port: 8080
-      targetPort: 80
-      protocol: TCP
+      targetPort: 8080
+      nodePort: 30083
   selector:
     service: ui-app-latest

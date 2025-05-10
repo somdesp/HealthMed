@@ -52,10 +52,10 @@ metadata:
   name: api-paciente-latest
   # namespace: fiap
 spec:
-  type: NodePort
   ports:
     - port: 8080
-      nodePort: 30081
+      targetPort: 8080
+      protocol: TCP
   selector:
     app: api-paciente-latest
 ---

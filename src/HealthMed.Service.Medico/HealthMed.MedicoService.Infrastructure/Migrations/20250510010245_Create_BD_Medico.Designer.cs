@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthMed.MedicoService.Infrastructure.Migrations
 {
     [DbContext(typeof(MedicoContext))]
-    [Migration("20250424154651_CriaMedicoDb")]
-    partial class CriaMedicoDb
+    [Migration("20250510010245_Create_BD_Medico")]
+    partial class Create_BD_Medico
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,11 +74,39 @@ namespace HealthMed.MedicoService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ValorConsulta")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EspecialidadeId");
 
                     b.ToTable("Medicos");
+                });
+
+            modelBuilder.Entity("HealthMed.MedicoServiceService.Domain.Entities.AgendaMedico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataHora")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MedicoId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Reservada")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AgendaMedico");
                 });
 
             modelBuilder.Entity("HealthMed.MedicoService.Domain.Entities.Medico", b =>
