@@ -22,7 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="UseCases\Agendamentos\Queries\" />
+	  <Folder Include="UseCases\Agendamentos\Queries\BuscaAgendamentos\" />
 	</ItemGroup>
 
 </Project>

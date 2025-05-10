@@ -1,22 +1,21 @@
 ﻿using AutoMapper;
 using HealthMed.AgendamentoService.Application.Contracts.Persistence;
-using HealthMed.AgendamentoService.Domain.Entities;
 using HealthMed.AgendamentoService.Domain.Entities.Enums;
+using HealthMed.AgendamentoService.Domain.Entities;
 using HealthMed.BuildingBlocks.Authorization;
 using HealthMed.BuildingBlocks.Messaging;
 using MassTransit;
 using MediatR;
 
-namespace HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.NovoAgendamento;
-
-public class NovoAgendamentoCommandRequestHandler : IRequestHandler<NovoAgendamentoCommandRequest>
+namespace HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.CancelaAgendamento;
+public class CancelaAgendamentoCommandRequestHandler : IRequestHandler<CancelaAgendamentoCommandRequest>
 {
     private readonly IAgendamentoRepository _agendamentoRepository;
     private readonly IMapper _mapper;
     private readonly IAppUsuario _appUsuario;
     private readonly IPublishEndpoint _publishEndpoint;
 
-    public NovoAgendamentoCommandRequestHandler(
+    public CancelaAgendamentoCommandRequestHandler(
         IAgendamentoRepository agendamentoRepository,
         IMapper mapper,
         IAppUsuario appUsuario,
@@ -28,17 +27,17 @@ public class NovoAgendamentoCommandRequestHandler : IRequestHandler<NovoAgendame
         _publishEndpoint = publishEndpoint;
     }
 
-    public async Task Handle(NovoAgendamentoCommandRequest request, CancellationToken cancellationToken)
+    public async Task Handle(CancelaAgendamentoCommandRequest request, CancellationToken cancellationToken)
     {
-        var novoAgendamento = _mapper.Map<Agendamento>(request);
-        novoAgendamento.Status = AgendamentoStatus.Pendente;
-        novoAgendamento.PacienteId = _appUsuario.GetUsuarioId();
-        await _agendamentoRepository.AddAsync(novoAgendamento);
+        var agendamento = _mapper.Map<Agendamento>(request);
+        agendamento.Status = AgendamentoStatus.Cancelado;
+
+        await _agendamentoRepository.UpdateAsync(agendamento);
 
         await _publishEndpoint.Publish(
-            new AgendamentoCriadoEvent(
-                novoAgendamento.AgendaId,
-                novoAgendamento.PacienteId)
+            new AgendamentoCanceladoEvent(
+                agendamento.Id,
+                agendamento.AgendaId)
             );
     }
 }

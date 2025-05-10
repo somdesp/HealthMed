@@ -4,4 +4,5 @@ namespace HealthMed.MedicoService.Application.UseCases.Agendas.Commands.ReservaA
 public class ReservaAgendaCommandRequest : IRequest
 {
     public int AgendaId { get; set; }
+    public bool ReservaAgenda { get; set; }
 }

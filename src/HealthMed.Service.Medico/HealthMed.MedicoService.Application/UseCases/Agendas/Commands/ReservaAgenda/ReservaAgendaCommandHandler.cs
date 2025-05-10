@@ -21,7 +21,7 @@ public class ReservaAgendaCommandHandler : IRequestHandler<ReservaAgendaCommandR
 
         if (agenda != null)
         {
-            agenda.Reservada = true;
+            agenda.Reservada = request.ReservaAgenda;
             await _agendaRepository.UpdateAsync(agenda);
         }
     }
