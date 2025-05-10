@@ -36,7 +36,7 @@ namespace HealthMed.AgendamentoService.Infrastructure.Migrations
                     b.Property<DateTime?>("DataCriacao")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("JustificativaCancelamento")
+                    b.Property<string>("MotivoCancelamento")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PacienteId")

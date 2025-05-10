@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using HealthMed.AgendamentoService.Application.Dtos;
+using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.CancelaAgendamento;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.NovoAgendamento;
 using HealthMed.AgendamentoService.Domain.Entities;
 
@@ -10,5 +12,7 @@ public class MappingProfile : Profile
     {
 
         CreateMap<NovoAgendamentoCommandRequest, Agendamento>();
+        CreateMap<Agendamento, MeusAgendamentosResponseDto>();
+        CreateMap<CancelaAgendamentoCommandRequest, Agendamento>();
     }
 }

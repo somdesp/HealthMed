@@ -22,6 +22,11 @@ builder.Services.AddMassTransit(opt =>
     opt.SetKebabCaseEndpointNameFormatter();
 
     opt.AddConsumer<AgendamentoCriadoConsumer>();
+    opt.AddConsumer<AgendamentoCanceladoConsumer>();
+    opt.AddConsumer<BuscaAgendasMedicoConsumer>();
+    opt.AddConsumer<BuscaMedicoPorAgendasConsumer>();
+
+
 
     opt.UsingRabbitMq(
         (context, cfg) =>

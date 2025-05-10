@@ -26,4 +26,11 @@ public class MedicoRepository : Repository<Medico>, IMedicoRepository
         return result;
 
     }
+
+    public async Task<IEnumerable<Medico>> BuscaMedicoPorId(IEnumerable<int> medicoId)
+    {
+        var result = await _medicoContexto.Medicos.Include(x => x.Especialidade).Where(x => medicoId.Contains(x.Id)).ToListAsync();
+        return result;
+    }
+
 }

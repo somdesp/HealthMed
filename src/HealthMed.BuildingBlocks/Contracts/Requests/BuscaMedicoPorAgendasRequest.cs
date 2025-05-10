@@ -2,5 +2,5 @@
 
 namespace HealthMed.BuildingBlocks.Contracts.Requests;
 
-public record BuscaAgendasMedicoRequest(int MedicoId) : IntegrationEvent;
+public record BuscaMedicoPorAgendasRequest(IEnumerable<int> AgendasId) : IntegrationEvent;
 

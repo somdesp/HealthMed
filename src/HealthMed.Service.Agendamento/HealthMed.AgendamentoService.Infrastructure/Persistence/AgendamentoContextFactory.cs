@@ -6,16 +6,17 @@ namespace HealthMed.AgendamentoService.Infrastructure.Persistence;
 
 public class AgendamentoContextFactory : IDesignTimeDbContextFactory<AgendamentoContext>
 {
-    private readonly IConfiguration _configuration;
-
-    public AgendamentoContextFactory(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
     public AgendamentoContext CreateDbContext(string[] args)
     {
+        IConfigurationRoot configuration = new ConfigurationBuilder()
+          .SetBasePath(Directory.GetCurrentDirectory()) // importante
+          .AddJsonFile("appsettings.json", true)
+          .Build();
+
+        var connectionString = configuration.GetConnectionString("AgendamentoConnectionString");
+
         var optionsBuilder = new DbContextOptionsBuilder<AgendamentoContext>();
-        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("AgendamentoConnectionString"));
+        optionsBuilder.UseSqlServer(connectionString);
 
         return new AgendamentoContext(optionsBuilder.Options);
 

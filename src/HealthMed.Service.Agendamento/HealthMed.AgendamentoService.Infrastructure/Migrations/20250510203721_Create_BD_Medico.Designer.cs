@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthMed.AgendamentoService.Infrastructure.Migrations
 {
     [DbContext(typeof(AgendamentoContext))]
-    [Migration("20250509180528_Create_BD_Agendamento")]
-    partial class Create_BD_Agendamento
+    [Migration("20250510203721_Create_BD_Medico")]
+    partial class Create_BD_Medico
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,7 +39,7 @@ namespace HealthMed.AgendamentoService.Infrastructure.Migrations
                     b.Property<DateTime?>("DataCriacao")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("JustificativaCancelamento")
+                    b.Property<string>("MotivoCancelamento")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PacienteId")

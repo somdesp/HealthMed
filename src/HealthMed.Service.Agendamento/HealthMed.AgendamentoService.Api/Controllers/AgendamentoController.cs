@@ -1,12 +1,12 @@
-﻿using HealthMed.AgendamentoService.Application.Exceptions;
+﻿using FluentValidation;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.CancelaAgendamento;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.NovoAgendamento;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Queries.BuscaAgendamentosMedico;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Queries.BuscaMeusAgendamentos;
+using HealthMed.BuildingBlocks.Authorization;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 namespace HealthMed.AgendamentoService.Api.Controllers;
 
 [Route("api/[controller]")]
@@ -14,10 +14,11 @@ namespace HealthMed.AgendamentoService.Api.Controllers;
 public class AgendamentoController : ControllerBase
 {
     private readonly IMediator _mediator;
-
-    public AgendamentoController(IMediator mediator)
+    private readonly IAppUsuario _appUsuario;
+    public AgendamentoController(IMediator mediator, IAppUsuario appUsuario)
     {
         _mediator = mediator;
+        _appUsuario = appUsuario;
     }
 
     [HttpPost]
@@ -50,14 +51,14 @@ public class AgendamentoController : ControllerBase
         }
     }
 
-    [HttpGet("paciente/{pacienteId:int}")]
+    [HttpGet("paciente/MeusAgendamentos")]
     [Authorize(Roles = "Paciente")]
-    public async Task<ActionResult> MeusAgendamentos(int pacienteId)
+    public async Task<ActionResult> MeusAgendamentos()
     {
         try
         {
-            await _mediator.Send(new BuscaMeusAgendamentosQuery { PacienteId = pacienteId });
-            return Ok();
+            var result = await _mediator.Send(new BuscaMeusAgendamentosQuery { PacienteId = _appUsuario.GetUsuarioId() });
+            return Ok(result);
         }
         catch (ValidationException ex)
         {

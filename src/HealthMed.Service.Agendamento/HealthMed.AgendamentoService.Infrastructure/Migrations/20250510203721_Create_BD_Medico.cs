@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HealthMed.AgendamentoService.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Create_BD_Agendamento : Migration
+    public partial class Create_BD_Medico : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace HealthMed.AgendamentoService.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PacienteId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    JustificativaCancelamento = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MotivoCancelamento = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AgendaId = table.Column<int>(type: "int", nullable: false),
                     DataCriacao = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },

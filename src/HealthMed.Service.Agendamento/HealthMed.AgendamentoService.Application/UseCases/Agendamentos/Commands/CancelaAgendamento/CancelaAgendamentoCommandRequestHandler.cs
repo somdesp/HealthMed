@@ -29,15 +29,19 @@ public class CancelaAgendamentoCommandRequestHandler : IRequestHandler<CancelaAg
 
     public async Task Handle(CancelaAgendamentoCommandRequest request, CancellationToken cancellationToken)
     {
-        var agendamento = _mapper.Map<Agendamento>(request);
-        agendamento.Status = AgendamentoStatus.Cancelado;
+        var agendamento = await _agendamentoRepository.FirstOrDefaultAsync(a => a.Id == request.AgendamentoId && a.PacienteId == _appUsuario.GetUsuarioId());
+        if (agendamento != null)
+        {
+            agendamento.Status = AgendamentoStatus.Cancelado;
+            agendamento.MotivoCancelamento = request.MotivoCancelamento;
 
-        await _agendamentoRepository.UpdateAsync(agendamento);
+            await _agendamentoRepository.UpdateAsync(agendamento);
 
-        await _publishEndpoint.Publish(
-            new AgendamentoCanceladoEvent(
-                agendamento.Id,
-                agendamento.AgendaId)
-            );
+            await _publishEndpoint.Publish(
+                new AgendamentoCanceladoEvent(
+                    agendamento.Id,
+                    agendamento.AgendaId)
+                );
+        }
     }
 }

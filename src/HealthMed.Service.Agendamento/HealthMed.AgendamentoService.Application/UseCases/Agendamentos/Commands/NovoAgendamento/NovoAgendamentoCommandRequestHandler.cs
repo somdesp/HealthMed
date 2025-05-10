@@ -9,7 +9,7 @@ using MediatR;
 
 namespace HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.NovoAgendamento;
 
-public class NovoAgendamentoCommandRequestHandler : IRequestHandler<NovoAgendamentoCommandRequest>
+public class NovoAgendamentoCommandRequestHandler : IRequestHandler<NovoAgendamentoCommandRequest, bool>
 {
     private readonly IAgendamentoRepository _agendamentoRepository;
     private readonly IMapper _mapper;
@@ -28,7 +28,7 @@ public class NovoAgendamentoCommandRequestHandler : IRequestHandler<NovoAgendame
         _publishEndpoint = publishEndpoint;
     }
 
-    public async Task Handle(NovoAgendamentoCommandRequest request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(NovoAgendamentoCommandRequest request, CancellationToken cancellationToken)
     {
         var novoAgendamento = _mapper.Map<Agendamento>(request);
         novoAgendamento.Status = AgendamentoStatus.Pendente;
@@ -37,8 +37,9 @@ public class NovoAgendamentoCommandRequestHandler : IRequestHandler<NovoAgendame
 
         await _publishEndpoint.Publish(
             new AgendamentoCriadoEvent(
-                novoAgendamento.AgendaId,
-                novoAgendamento.PacienteId)
+                novoAgendamento.PacienteId, novoAgendamento.AgendaId)
             );
+
+        return true;
     }
 }

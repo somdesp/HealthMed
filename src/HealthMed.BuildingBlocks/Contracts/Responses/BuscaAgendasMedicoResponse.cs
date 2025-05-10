@@ -4,3 +4,4 @@ public class BuscaAgendasMedicoResponse
 {
     public required IEnumerable<AgendaResponse> Agendas { get; set; }
 }
+
