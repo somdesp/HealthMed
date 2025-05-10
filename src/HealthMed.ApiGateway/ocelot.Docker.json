@@ -48,6 +48,45 @@
       ],
       "UpstreamPathTemplate": "/medico/Login",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Agenda/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "api-doctor-latest",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/medico/BuscaAgendas/",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Agenda",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "api-doctor-latest",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/medico/NovaAgenda",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Agenda/{agendaId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "api-doctor-latest",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/medico/AlteraAgenda/{agendaId}",
+      "UpstreamHttpMethod": [ "PUT" ]
     }
   ],
   "GlobalConfiguration": {

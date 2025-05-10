@@ -52,7 +52,7 @@ export class PacienteComponent {
   BuscaMedico() {
     this._pacienteService.BuscaMedicos(this.filtro.toLowerCase()).subscribe({
       next: (response: any) => {
-        this.medicos = response.medicoResponse;
+        this.medicos = response;
       }
     });
   }

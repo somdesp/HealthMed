@@ -13,7 +13,7 @@ public class MedicoContextFactory : IDesignTimeDbContextFactory<MedicoContext>
 
         var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false)
+            .AddJsonFile("appsettings.json", optional: true)
             .AddJsonFile($"appsettings.{environment}.json", optional: true) // carrega o ambiente se existir
             .AddEnvironmentVariables();
 

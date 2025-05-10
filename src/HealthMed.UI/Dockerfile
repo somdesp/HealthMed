@@ -1,27 +1,28 @@
-# Etapa 1: Construir a aplicação Angular
+# Etapa 1: Build da aplicação Angular
 FROM node:18 AS build
 
-# Definir o diretório de trabalho
 WORKDIR /app
 
-# Copiar o package.json e instalar dependências
+# Copia os arquivos de dependência e instala
 COPY package*.json ./
 RUN npm install
 
-# Copiar o restante dos arquivos da aplicação
+# Copia o restante do projeto e compila
 COPY . .
+RUN npm run build -- --configuration docker
 
-# Construir a aplicação Angular para produção
-RUN npm run build --docker
-
-# Etapa 2: Servir a aplicação com Nginx
+# Etapa 2: Servir arquivos com Nginx
 FROM nginx:alpine
 
-# Copiar os arquivos de build do Angular para o diretório do Nginx
-COPY --from=build /app/dist/meu-app-angular /usr/share/nginx/html
+# Remove arquivos padrão do Nginx
+RUN rm -rf /usr/share/nginx/html/*
 
-# Expor a porta 80
+# Copia os arquivos da build Angular para o Nginx
+COPY --from=build /app/dist/health-med.ui/browser /usr/share/nginx/html
+
+# (Opcional) Redirecionar rotas Angular para index.html
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
 
-# Iniciar o servidor Nginx
 CMD ["nginx", "-g", "daemon off;"]

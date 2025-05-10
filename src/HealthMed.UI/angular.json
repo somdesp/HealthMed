@@ -94,9 +94,12 @@
             },
             "docker": {
               "buildTarget": "HealthMed.UI:build:docker"
+            },
+            "development": {
+              "buildTarget": "HealthMed.UI:build:development"
             }
           },
-          "defaultConfiguration": "docker"
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"

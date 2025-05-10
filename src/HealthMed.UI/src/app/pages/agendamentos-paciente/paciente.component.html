@@ -67,6 +67,7 @@
                     <tr>
                         <th>Médico</th>
                         <th>CRM</th>
+                        <th>Valor Consulta</th>
                         <th>Especialidade</th>
                         <th>Ações</th>
                     </tr>
@@ -75,7 +76,8 @@
                     <tr *ngFor="let med of medicos">
                         <td>{{ med.nome }}</td>
                         <td>{{ med.crm }}</td>
-                        <td>{{ med.especialidade }}</td>
+                        <td>{{ med.valorConsulta }}</td>
+                        <td>{{ med.especialidade.nome }}</td>
                         <td>
                             <button (click)="visualizar(med)">Visualizar</button>
                         </td>

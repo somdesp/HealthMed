@@ -13,7 +13,7 @@ export class AuthService {
   private router = inject(Router);
 
   loginMedico(crm: string, senha: string): Observable<any> {
-    let apiUrl = `${environment.apiMedico}/Medico/Login`;
+    let apiUrl = `${environment.apiGateway}/Medico/Login`;
     return this.http.post<{ accessToken: string }>(apiUrl, {
       crm,
       senha
@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   loginPaciente(cpf: string, senha: string): Observable<any> {
-    let apiUrl = `${environment.apiMedico}/Paciente/Login`;
+    let apiUrl = `${environment.apiGateway}/Paciente/Login`;
 
     return this.http.post<{ accessToken: string }>(apiUrl, {
       cpf,

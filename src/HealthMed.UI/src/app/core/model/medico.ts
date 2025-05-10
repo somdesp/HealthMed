@@ -1,6 +1,11 @@
 export interface Medico {
+    valorConsulta: number;
     id: number;
     nome: string;
-    especialidade: string;
+    especialidade: Especialidade;
     crm: string;
+}
+
+export interface Especialidade {
+    nome: string
 }

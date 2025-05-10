@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthMed.MedicoService.Infrastructure.Migrations
 {
     [DbContext(typeof(MedicoContext))]
-    [Migration("20250510010245_Create_BD_Medico")]
+    [Migration("20250510022433_Create_BD_Medico")]
     partial class Create_BD_Medico
     {
         /// <inheritdoc />
@@ -74,8 +74,8 @@ namespace HealthMed.MedicoService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ValorConsulta")
-                        .HasColumnType("int");
+                    b.Property<double>("ValorConsulta")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

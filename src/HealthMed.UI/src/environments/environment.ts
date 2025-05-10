@@ -5,8 +5,7 @@
 export const environment = {
   production: false,
   hmr: false,
-  apiPaciente: 'https://localhost:44390',
-  apiMedico: 'https://localhost:44390'
+  apiGateway: 'https://localhost:44390'
 };
 
 /*

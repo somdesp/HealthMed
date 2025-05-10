@@ -71,8 +71,8 @@ namespace HealthMed.MedicoService.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ValorConsulta")
-                        .HasColumnType("int");
+                    b.Property<double>("ValorConsulta")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

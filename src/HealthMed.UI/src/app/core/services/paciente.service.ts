@@ -7,8 +7,8 @@ export class PacienteService {
     private http = inject(HttpClient);
 
     BuscaMedicos(especialidade: string) {
-        let apiUrl = `${environment.apiMedico}/Paciente/BuscaEspecialidade`;
-        return this.http.post(apiUrl, { nome: especialidade });
+        let apiUrl = `${environment.apiGateway}/BuscaEspecialidade`;
+        return this.http.post(apiUrl, { nomeEspecialidade: especialidade });
     }
 
 }

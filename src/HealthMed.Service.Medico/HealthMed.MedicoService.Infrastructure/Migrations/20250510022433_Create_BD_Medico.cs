@@ -50,7 +50,7 @@ namespace HealthMed.MedicoService.Infrastructure.Migrations
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Crm = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Senha = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ValorConsulta = table.Column<int>(type: "int", nullable: false),
+                    ValorConsulta = table.Column<double>(type: "float", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     EspecialidadeId = table.Column<int>(type: "int", nullable: false),
                     DataCriacao = table.Column<DateTime>(type: "datetime2", nullable: true)
