@@ -1,5 +1,6 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Prometheus;
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +26,8 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 app.UseCors("Frontend");
+app.UseMetricServer();
 
 await app.UseOcelot();
-
+app.UseHttpMetrics();
 app.Run();

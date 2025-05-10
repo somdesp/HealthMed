@@ -17,4 +17,4 @@ data:
       - job_name: "techchallenge"
         metrics_path: "/metrics"
         static_configs:
-          - targets: ["api_medico_latest:8080", "api_paciente_latest:8080", "api_agendamento_latest:8080", "api_gateway_latest:8080"]
+          - targets: ["api-medico-latest:8080", "api-paciente-latest:8080", "api-agendamento-latest:8080"]

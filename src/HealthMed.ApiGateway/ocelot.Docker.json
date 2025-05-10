@@ -17,7 +17,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "api-doctor-latest",
+          "Host": "api-medico-latest",
           "Port": 8080
         }
       ],
@@ -29,7 +29,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "api-doctor-latest",
+          "Host": "api-medico-latest",
           "Port": 8080
         }
       ],
@@ -42,7 +42,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "api-doctor-latest",
+          "Host": "api-medico-latest",
           "Port": 8080
         }
       ],
@@ -55,7 +55,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "api-doctor-latest",
+          "Host": "api-medico-latest",
           "Port": 8080
         }
       ],
@@ -68,7 +68,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "api-doctor-latest",
+          "Host": "api-medico-latest",
           "Port": 8080
         }
       ],
@@ -81,7 +81,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "api-doctor-latest",
+          "Host": "api-medico-latest",
           "Port": 8080
         }
       ],
