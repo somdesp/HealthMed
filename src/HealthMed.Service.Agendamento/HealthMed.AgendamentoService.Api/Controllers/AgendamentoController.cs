@@ -1,3 +1,5 @@
+﻿using HealthMed.AgendamentoService.Application.Exceptions;
+using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.AceitaRecusaAgendamento;
 ﻿using FluentValidation;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.CancelaAgendamento;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.NovoAgendamento;
@@ -51,6 +53,22 @@ public class AgendamentoController : ControllerBase
         }
     }
 
+    [HttpPut("aceita-recusa/{agendamentoId:int}")]
+    [Authorize(Roles = "Paciente")]
+    public async Task<ActionResult> AceitaRecusaAgendamento([FromRoute] int agendamentoId, [FromBody] AceitaRecusaAgendamentoCommandRequest request)
+    {
+        try
+        {
+            await _mediator.Send(request);
+            return Ok();
+        }
+        catch (ValidationException ex)
+        {
+            return BadRequest(ex.Errors);
+        }
+    }
+
+    [HttpGet("paciente/{pacienteId:int}")]
     [HttpGet("paciente/MeusAgendamentos")]
     [Authorize(Roles = "Paciente")]
     public async Task<ActionResult> MeusAgendamentos()
