@@ -1,3 +1,3 @@
 ﻿namespace HealthMed.BuildingBlocks.Contracts.Responses;
 
-public record AgendamentoResponse(int AgendamentoId, DateTime DataHora, string Medico, string Especialidade, double valorConsulta);
+public record AgendamentoResponse(int AgendaId, DateTime DataHora, string Medico, string Especialidade, double ValorConsulta);

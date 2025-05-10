@@ -13,7 +13,7 @@ namespace HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Command
                 {
                     var agendamentos = await agendamentoRepository.GetAsync(a => a.AgendaId == agendaId
                         && (a.Status != AgendamentoStatus.Cancelado || a.Status != AgendamentoStatus.Recusado));
-                    return agendamentos == null;
+                    return !agendamentos.Any();
 
                 })
                 .WithMessage("Agenda não esta disponível.");

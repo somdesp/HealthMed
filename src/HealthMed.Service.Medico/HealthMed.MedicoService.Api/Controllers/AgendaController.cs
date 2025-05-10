@@ -55,13 +55,15 @@ public class AgendaController : ControllerBase
 
     [HttpDelete("{agendaId:int}")]
     [Authorize(Roles = "Medico")]
-    public async Task<ActionResult> DeletaAgenda([FromRoute] int agendaId, [FromBody] DeletaAgendaCommandRequest request)
+    public async Task<ActionResult> DeletaAgenda([FromRoute] int agendaId)
     {
         try
         {
-            request.Id = agendaId;
-            request.MedicoId = _appUsuario.GetUsuarioId();
-            await _mediator.Send(request);
+            await _mediator.Send(new DeletaAgendaCommandRequest
+            {
+                MedicoId = _appUsuario.GetUsuarioId(),
+                Id = agendaId
+            });
             return Ok();
         }
         catch (ValidationException ex)

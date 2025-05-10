@@ -33,12 +33,12 @@ namespace HealthMed.MedicoService.Api.Controllers
             }
         }
 
-        [HttpPost("BuscaEspecialidade")]
-        public async Task<ActionResult> BuscaEspecialidade([FromBody] BuscaMedicoPorEspecialidadeCommandRequest query)
+        [HttpGet("BuscaEspecialidade/{especialidade}")]
+        public async Task<ActionResult> BuscaEspecialidade(string especialidade)
         {
             try
             {
-                var response = await _mediator.Send(query);
+                var response = await _mediator.Send(new BuscaMedicoPorEspecialidadeCommandRequest { NomeEspecialidade = especialidade });
                 return Ok(response);
             }
             catch (ValidationException ex)

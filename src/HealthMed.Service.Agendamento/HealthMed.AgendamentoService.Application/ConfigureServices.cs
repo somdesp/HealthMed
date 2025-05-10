@@ -27,32 +27,4 @@ public static class ConfigureServices
 
         return services;
     }
-    public static IServiceCollection AddMassTransitExtension(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddMassTransit(opt =>
-        {
-            opt.SetKebabCaseEndpointNameFormatter();
-
-            opt.UsingRabbitMq(
-                (context, cfg) =>
-                {
-                    cfg.ConfigureJsonSerializerOptions(json =>
-                    {
-                        json.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-                        json.WriteIndented = true;
-                        return json;
-                    });
-
-                    cfg.Host(configuration.GetConnectionString("RabbitMq"));
-                    cfg.ServiceInstance(instance =>
-                    {
-                        instance.ConfigureJobServiceEndpoints();
-                        instance.ConfigureEndpoints(context, new KebabCaseEndpointNameFormatter("fiap", false));
-                    });
-                });
-
-        });
-
-        return services;
-    }
 }

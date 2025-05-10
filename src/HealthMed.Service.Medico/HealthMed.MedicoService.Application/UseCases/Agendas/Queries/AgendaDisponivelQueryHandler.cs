@@ -18,9 +18,19 @@ public class AgendaDisponivelQueryHandler : IRequestHandler<AgendaDisponivelQuer
 
     public async Task<IEnumerable<AgendaDisponivelDto>> Handle(AgendaDisponivelQuery request, CancellationToken cancellationToken)
     {
-        var agenda = _mapper.Map<IEnumerable<AgendaDisponivelDto>>(
-            await _agendaRepository.GetAsync(a => a.MedicoId == request.MedicoId && !a.Reservada)
-            );
+        var agendaDisponivel =
+            await _agendaRepository.GetAsync(a => a.MedicoId == request.MedicoId && !a.Reservada, null, "Medico");
+
+
+        var agenda = (from ad in agendaDisponivel
+                      select new AgendaDisponivelDto
+                      {
+                          DataHora = ad.DataHora,
+                          Id = ad.Id,
+                          MedicoId = ad.MedicoId,
+                          Medico = ad.Medico.Nome,
+                          ValorConsulta = ad.Medico.ValorConsulta
+                      }).ToList();
 
         return agenda;
     }

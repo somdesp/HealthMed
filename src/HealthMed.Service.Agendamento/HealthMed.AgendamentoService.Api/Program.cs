@@ -1,9 +1,12 @@
+using HealthMed.AgendamentoService.Api.Consumers;
 using HealthMed.AgendamentoService.Application;
 using HealthMed.AgendamentoService.Infrastructure;
 using HealthMed.AgendamentoService.Infrastructure.Persistence;
 using HealthMed.BuildingBlocks.Configurations;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Prometheus;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +15,29 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddSecurity(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
-//builder.Services.AddMassTransitExtensionDefault(builder.Configuration);
-builder.Services.AddMassTransitExtension(builder.Configuration);
+builder.Services.AddMassTransit(opt =>
+{
+    opt.SetKebabCaseEndpointNameFormatter();
+    opt.AddConsumer<DeletaAgendamentoConsumer>();
+    opt.UsingRabbitMq(
+        (context, cfg) =>
+        {
+            cfg.ConfigureJsonSerializerOptions(json =>
+            {
+                json.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                json.WriteIndented = true;
+                return json;
+            });
+
+            cfg.Host(builder.Configuration.GetConnectionString("RabbitMq"));
+            cfg.ServiceInstance(instance =>
+            {
+                instance.ConfigureJobServiceEndpoints();
+                instance.ConfigureEndpoints(context, new KebabCaseEndpointNameFormatter("fiap", false));
+            });
+        });
+
+});
 
 
 builder.Services.AddControllers();

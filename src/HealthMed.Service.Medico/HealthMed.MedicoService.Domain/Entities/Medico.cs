@@ -1,4 +1,5 @@
 ﻿using HealthMed.BuildingBlocks.Common;
+using HealthMed.MedicoServiceService.Domain.Entities;
 
 namespace HealthMed.MedicoService.Domain.Entities;
 
@@ -12,4 +13,5 @@ public class Medico : EntityBase
 
     public int EspecialidadeId { get; set; }
     public Especialidade? Especialidade { get; set; }
+    public ICollection<AgendaMedico>? AgendaMedico { get; set; }
 }

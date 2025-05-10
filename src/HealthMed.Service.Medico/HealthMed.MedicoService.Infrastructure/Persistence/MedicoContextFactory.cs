@@ -6,17 +6,16 @@ namespace HealthMed.MedicoService.Infrastructure.Persistence;
 
 public class MedicoContextFactory : IDesignTimeDbContextFactory<MedicoContext>
 {
-    private readonly IConfiguration _configuration;
-
-    public MedicoContextFactory(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
     public MedicoContext CreateDbContext(string[] args)
     {
+        IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory()) // importante
+                .AddJsonFile("appsettings.json", true)
+                .Build();
+
+        var connectionString = configuration.GetConnectionString("MedicoConnectionString");
         var optionsBuilder = new DbContextOptionsBuilder<MedicoContext>();
-        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("MedicoConnectionString"));
+        optionsBuilder.UseSqlServer(connectionString);
 
         return new MedicoContext(optionsBuilder.Options);
     }

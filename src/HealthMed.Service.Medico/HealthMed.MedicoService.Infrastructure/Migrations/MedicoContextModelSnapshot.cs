@@ -103,6 +103,8 @@ namespace HealthMed.MedicoService.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MedicoId");
+
                     b.ToTable("AgendaMedico");
                 });
 
@@ -117,9 +119,25 @@ namespace HealthMed.MedicoService.Infrastructure.Migrations
                     b.Navigation("Especialidade");
                 });
 
+            modelBuilder.Entity("HealthMed.MedicoServiceService.Domain.Entities.AgendaMedico", b =>
+                {
+                    b.HasOne("HealthMed.MedicoService.Domain.Entities.Medico", "Medico")
+                        .WithMany("AgendaMedico")
+                        .HasForeignKey("MedicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Medico");
+                });
+
             modelBuilder.Entity("HealthMed.MedicoService.Domain.Entities.Especialidade", b =>
                 {
                     b.Navigation("Medicos");
+                });
+
+            modelBuilder.Entity("HealthMed.MedicoService.Domain.Entities.Medico", b =>
+                {
+                    b.Navigation("AgendaMedico");
                 });
 #pragma warning restore 612, 618
         }

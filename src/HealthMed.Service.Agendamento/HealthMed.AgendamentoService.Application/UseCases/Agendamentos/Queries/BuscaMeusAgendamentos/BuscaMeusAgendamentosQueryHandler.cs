@@ -9,7 +9,7 @@ using MediatR;
 
 namespace HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Queries.BuscaMeusAgendamentos;
 
-public class BuscaMeusAgendamentosQueryHandler : IRequestHandler<BuscaMeusAgendamentosQuery, IEnumerable<AgendamentoResponse>>
+public class BuscaMeusAgendamentosQueryHandler : IRequestHandler<BuscaMeusAgendamentosQuery, IEnumerable<MeusAgendamentosDto>>
 {
     private readonly IAppUsuario _appUsuario;
     private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ public class BuscaMeusAgendamentosQueryHandler : IRequestHandler<BuscaMeusAgenda
         _requestClient = requestClient;
     }
 
-    public async Task<IEnumerable<AgendamentoResponse>> Handle(BuscaMeusAgendamentosQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<MeusAgendamentosDto>> Handle(BuscaMeusAgendamentosQuery request, CancellationToken cancellationToken)
     {
         var agendamentos = await
             _agendamentoRepository.GetAsync(a => a.PacienteId == _appUsuario.GetUsuarioId());
@@ -37,7 +37,19 @@ public class BuscaMeusAgendamentosQueryHandler : IRequestHandler<BuscaMeusAgenda
         var response = await _requestClient.GetResponse<MeusAgendamentosResponse>(
             new BuscaMedicoPorAgendasRequest(agendamentos.Select(x => x.AgendaId)));
 
+        var result = (from ma in response.Message.Agendamentos
+                      join ag in agendamentos on ma.AgendaId equals ag.AgendaId
+                      select new MeusAgendamentosDto
+                      {
+                          Id = ag.Id,
+                          AgendaId = ma.AgendaId,
+                          Medico = ma.Medico,
+                          ValorConsulta = ma.ValorConsulta,
+                          DataHora = ma.DataHora,
+                          Especialidade = ma.Especialidade
+                      }).ToList();
 
-        return response.Message.Agendamentos;
+
+        return result;
     }
 }
