@@ -1,9 +1,8 @@
 ﻿using FluentValidation;
 using HealthMed.BuildingBlocks.Authorization;
-using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.AlteraAgenda;
+using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.DeletaAgenda;
 using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.NovaAgenda;
 using HealthMed.MedicoService.Application.UseCases.Agendas.Queries;
-using HealthMed.MedicoService.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,13 +22,13 @@ public class AgendaController : ControllerBase
         _appUsuario = appUsuario;
     }
 
-    [HttpGet]
+    [HttpGet("minha-agendas")]
     [Authorize(Roles = "Medico")]
-    public async Task<ActionResult> BuscaAgendas()
+    public async Task<ActionResult> BuscaMinhasAgendas()
     {
         try
         {
-            var result = await _mediator.Send(new AgendaDisponivelQuery { MedicoId = _appUsuario.GetUsuarioId() });
+            var result = await _mediator.Send(new MinhaAgendaQuery { MedicoId = _appUsuario.GetUsuarioId() });
             return Ok(result);
         }
         catch (ValidationException ex)
@@ -54,9 +53,9 @@ public class AgendaController : ControllerBase
         }
     }
 
-    [HttpPut("{agendaId:int}")]
+    [HttpDelete("{agendaId:int}")]
     [Authorize(Roles = "Medico")]
-    public async Task<ActionResult> AlteraAgenda([FromRoute] int agendaId, [FromBody] AlteraAgendaCommandRequest request)
+    public async Task<ActionResult> DeletaAgenda([FromRoute] int agendaId, [FromBody] DeletaAgendaCommandRequest request)
     {
         try
         {
@@ -64,6 +63,21 @@ public class AgendaController : ControllerBase
             request.MedicoId = _appUsuario.GetUsuarioId();
             await _mediator.Send(request);
             return Ok();
+        }
+        catch (ValidationException ex)
+        {
+            return BadRequest(ex.Errors);
+        }
+    }
+
+    [HttpGet("agenda/{medicoId:int}")]
+    [Authorize(Roles = "Paciente")]
+    public async Task<ActionResult> BuscaAgendaPorMedicoId(int medicoId)
+    {
+        try
+        {
+            var result = await _mediator.Send(new AgendaDisponivelQuery { MedicoId = medicoId });
+            return Ok(result);
         }
         catch (ValidationException ex)
         {

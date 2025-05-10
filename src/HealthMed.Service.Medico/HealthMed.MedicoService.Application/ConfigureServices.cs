@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using HealthMed.BuildingBlocks.Authorization;
 using HealthMed.BuildingBlocks.Configurations.Behaviors;
-using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.AlteraAgenda;
+using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.DeletaAgenda;
 using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.NovaAgenda;
 using MassTransit;
 using MediatR;

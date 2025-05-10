@@ -15,10 +15,11 @@ public class AgendaDisponivelQueryHandler : IRequestHandler<AgendaDisponivelQuer
         _agendaRepository = agendaRepository;
         _mapper = mapper;
     }
+
     public async Task<IEnumerable<AgendaDisponivelDto>> Handle(AgendaDisponivelQuery request, CancellationToken cancellationToken)
     {
         var agenda = _mapper.Map<IEnumerable<AgendaDisponivelDto>>(
-            await _agendaRepository.GetAsync(a => a.MedicoId == request.MedicoId)
+            await _agendaRepository.GetAsync(a => a.MedicoId == request.MedicoId && !a.Reservada)
             );
 
         return agenda;

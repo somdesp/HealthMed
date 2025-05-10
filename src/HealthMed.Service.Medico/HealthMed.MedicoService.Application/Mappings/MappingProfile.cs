@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using HealthMed.BuildingBlocks.Contracts.Responses;
 using HealthMed.MedicoService.Application.Dtos;
-using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.AlteraAgenda;
+using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.DeletaAgenda;
 using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.NovaAgenda;
 using HealthMed.MedicoService.Domain.Entities;
 using HealthMed.MedicoServiceService.Domain.Entities;
@@ -13,13 +13,14 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<NovaAgendaCommandRequest, AgendaMedico>();
-        CreateMap<AlteraAgendaCommandRequest, AgendaMedico>();
+        CreateMap<DeletaAgendaCommandRequest, AgendaMedico>();
 
         CreateMap<Especialidade, EspecialidadeDto>();
         CreateMap<Medico, MedicoDto>();
 
         CreateMap<AgendaMedico, AgendaDisponivelDto>();
 
+        CreateMap<AgendaDisponivelDto, AgendaResponse>();
 
     }
 }
