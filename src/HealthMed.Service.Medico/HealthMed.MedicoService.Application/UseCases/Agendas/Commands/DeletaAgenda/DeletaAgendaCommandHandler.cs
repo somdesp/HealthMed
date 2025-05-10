@@ -18,7 +18,6 @@ public class DeletaAgendaCommandHandler : IRequestHandler<DeletaAgendaCommandReq
 
     public async Task Handle(DeletaAgendaCommandRequest request, CancellationToken cancellationToken)
     {
-        //TODO: implementar o metodo
         var agenda = _mapper.Map<AgendaMedico>(request);
         await _agendaRepository.UpdateAsync(agenda);
     }
