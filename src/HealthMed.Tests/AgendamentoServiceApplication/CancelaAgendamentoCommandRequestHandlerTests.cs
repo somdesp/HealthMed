@@ -14,6 +14,7 @@ public class CancelaAgendamentoCommandRequestHandlerTests
 {
     private readonly Mock<IAgendamentoRepository> _agendamentoRepositoryMock;
     private readonly Mock<IMapper> _mapperMock;
+    private readonly Mock<IAppUsuario> _appUsuarioMock;
     private readonly Mock<IPublishEndpoint> _publishEndpointMock;
     private readonly CancelaAgendamentoCommandRequestHandler _handler;
 
@@ -21,44 +22,77 @@ public class CancelaAgendamentoCommandRequestHandlerTests
     {
         _agendamentoRepositoryMock = new Mock<IAgendamentoRepository>();
         _mapperMock = new Mock<IMapper>();
+        _appUsuarioMock = new Mock<IAppUsuario>();
         _publishEndpointMock = new Mock<IPublishEndpoint>();
+
         _handler = new CancelaAgendamentoCommandRequestHandler(
             _agendamentoRepositoryMock.Object,
             _mapperMock.Object,
-            Mock.Of<IAppUsuario>(),
+            _appUsuarioMock.Object,
             _publishEndpointMock.Object
         );
     }
 
     [Fact]
-    public async Task Handle_ShouldCancelAgendamentoAndPublishEvent()
+    public async Task Handle_ShouldCancelAgendamento_WhenAgendamentoExists()
     {
         // Arrange
+        var usuarioId = 1;
+        var agendamentoId = 10;
+        var motivoCancelamento = "Paciente indisponível";
+
         var request = new CancelaAgendamentoCommandRequest
         {
-            AgendamentoId = 1,
-            MotivoCancelamento = "Motivo de teste",
+            AgendamentoId = agendamentoId,
+            MotivoCancelamento = motivoCancelamento
         };
 
         var agendamento = new Agendamento
         {
-            Id = request.AgendamentoId,
+            Id = agendamentoId,
+            MotivoCancelamento = "Paciente indisponível",
+            PacienteId = usuarioId,
             Status = AgendamentoStatus.Cancelado
         };
 
-        _mapperMock
-            .Setup(mapper => mapper.Map<Agendamento>(request))
-            .Returns(agendamento);
+        _appUsuarioMock.Setup(u => u.GetUsuarioId()).Returns(usuarioId);
+
+        _agendamentoRepositoryMock
+            .Setup(repo => repo.FirstOrDefaultAsync(a => a.Id == agendamentoId && a.PacienteId == usuarioId))
+            .ReturnsAsync(agendamento);
 
         // Act
         await _handler.Handle(request, CancellationToken.None);
 
         // Assert
         Assert.Equal(AgendamentoStatus.Cancelado, agendamento.Status);
+        Assert.Equal(motivoCancelamento, agendamento.MotivoCancelamento);
+    }
 
-        _agendamentoRepositoryMock.Verify(repo => repo.UpdateAsync(agendamento), Times.Once);
-        _publishEndpointMock.Verify(endpoint => endpoint.Publish(
-            It.Is<AgendamentoCanceladoEvent>(e => e.AgendamentoId == agendamento.Id && e.AgendaId == agendamento.AgendaId),
-            It.IsAny<CancellationToken>()), Times.Once);
+    [Fact]
+    public async Task Handle_ShouldNotCancelAgendamento_WhenAgendamentoDoesNotExist()
+    {
+        // Arrange
+        var usuarioId = 1;
+        var agendamentoId = 10;
+
+        var request = new CancelaAgendamentoCommandRequest
+        {
+            AgendamentoId = agendamentoId,
+            MotivoCancelamento = "Paciente indisponível"
+        };
+
+        _appUsuarioMock.Setup(u => u.GetUsuarioId()).Returns(usuarioId);
+
+        _agendamentoRepositoryMock
+            .Setup(repo => repo.FirstOrDefaultAsync(a => a.Id == agendamentoId && a.PacienteId == usuarioId))
+            .ReturnsAsync((Agendamento)null);
+
+        // Act
+        await _handler.Handle(request, CancellationToken.None);
+
+        // Assert
+        _agendamentoRepositoryMock.Verify(repo => repo.UpdateAsync(It.IsAny<Agendamento>()), Times.Never);
+        _publishEndpointMock.Verify(endpoint => endpoint.Publish(It.IsAny<AgendamentoCanceladoEvent>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 }

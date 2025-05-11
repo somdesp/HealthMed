@@ -1,60 +1,73 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
-using HealthMed.MedicoService.Application.Contracts.Persistence;
+﻿using HealthMed.MedicoService.Application.Contracts.Persistence;
 using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.DeletaAgenda;
 using HealthMed.MedicoService.Domain.Entities;
-using MassTransit;
-using MassTransit.Transports;
 using Moq;
-using Xunit;
 
-namespace HealthMed.Tests.MedicoServiceApplication
+namespace HealthMed.Tests.MedicoServiceApplication;
+
+public class DeletaAgendaCommandHandlerTests
 {
-    public class DeletaAgendaCommandHandlerTests
+    private readonly Mock<IAgendaRepository> _agendaRepositoryMock;
+    private readonly DeletaAgendaCommandHandler _handler;
+
+    public DeletaAgendaCommandHandlerTests()
     {
-        private readonly Mock<IAgendaRepository> _agendaRepositoryMock;
-        private readonly Mock<IMapper> _mapperMock;
-        private readonly Mock<IPublishEndpoint> _publishEndpoint;
+        _agendaRepositoryMock = new Mock<IAgendaRepository>();
+        _handler = new DeletaAgendaCommandHandler(
+            _agendaRepositoryMock.Object,
+            null,
+            null
+        );
+    }
 
-        private readonly DeletaAgendaCommandHandler _handler;
-
-        public DeletaAgendaCommandHandlerTests()
+    [Fact]
+    public async Task Handle_ShouldDeleteAgenda_WhenAgendaExistsAndIsNotReserved()
+    {
+        // Arrange
+        var request = new DeletaAgendaCommandRequest
         {
-            _agendaRepositoryMock = new Mock<IAgendaRepository>();
-            _mapperMock = new Mock<IMapper>();
-            _publishEndpoint = new Mock<IPublishEndpoint>();
-            _handler = new DeletaAgendaCommandHandler(_agendaRepositoryMock.Object, _mapperMock.Object, _publishEndpoint.Object);
-        }
+            Id = 1,
+            MedicoId = 2
+        };
 
-        [Fact]
-        public async Task Handle_ShouldCallUpdateAsync_WhenRequestIsValid()
+        var agenda = new AgendaMedico
         {
-            // Arrange
-            var request = new DeletaAgendaCommandRequest
-            {
-                Id = 1
-            };
+            Id = 1,
+            MedicoId = 2,
+            Reservada = false
+        };
 
-            var agendaEntity = new AgendaMedico
-            {
-                Id = request.Id
-            };
+        _agendaRepositoryMock
+            .Setup(repo => repo.FirstOrDefaultAsync(
+                x => x.Id == request.Id && x.MedicoId == request.MedicoId && !x.Reservada))
+            .ReturnsAsync(agenda);
 
-            _mapperMock
-                .Setup(mapper => mapper.Map<AgendaMedico>(request))
-                .Returns(agendaEntity);
+        // Act
+        await _handler.Handle(request, CancellationToken.None);
 
-            _agendaRepositoryMock
-                .Setup(repo => repo.UpdateAsync(agendaEntity))
-                .Returns(Task.CompletedTask);
+        // Assert
+        _agendaRepositoryMock.Verify(repo => repo.DeleteAsync(agenda), Times.Once);
+    }
 
-            // Act
-            await _handler.Handle(request, CancellationToken.None);
+    [Fact]
+    public async Task Handle_ShouldNotDeleteAgenda_WhenAgendaDoesNotExist()
+    {
+        // Arrange
+        var request = new DeletaAgendaCommandRequest
+        {
+            Id = 1,
+            MedicoId = 2
+        };
 
-            // Assert
-            _mapperMock.Verify(mapper => mapper.Map<AgendaMedico>(request), Times.Once);
-            _agendaRepositoryMock.Verify(repo => repo.UpdateAsync(agendaEntity), Times.Once);
-        }
+        _agendaRepositoryMock
+            .Setup(repo => repo.FirstOrDefaultAsync(
+                x => x.Id == request.Id && x.MedicoId == request.MedicoId && !x.Reservada))
+            .ReturnsAsync((AgendaMedico)null);
+
+        // Act
+        await _handler.Handle(request, CancellationToken.None);
+
+        // Assert
+        _agendaRepositoryMock.Verify(repo => repo.DeleteAsync(It.IsAny<AgendaMedico>()), Times.Never);
     }
 }

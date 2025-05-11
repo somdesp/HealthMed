@@ -1,13 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using HealthMed.AgendamentoService.Application.Contracts.Persistence;
+﻿using HealthMed.AgendamentoService.Application.Contracts.Persistence;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.AceitaRecusaAgendamento;
 using HealthMed.AgendamentoService.Domain.Entities;
 using HealthMed.AgendamentoService.Domain.Entities.Enums;
 using HealthMed.BuildingBlocks.Messaging;
 using MassTransit;
 using Moq;
-using Xunit;
 
 namespace HealthMed.Tests.AgendamentoServiceApplication;
 

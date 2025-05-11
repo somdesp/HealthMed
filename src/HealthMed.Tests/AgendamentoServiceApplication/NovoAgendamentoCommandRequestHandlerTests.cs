@@ -4,7 +4,6 @@ using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.No
 using HealthMed.AgendamentoService.Domain.Entities;
 using HealthMed.AgendamentoService.Domain.Entities.Enums;
 using HealthMed.BuildingBlocks.Authorization;
-using HealthMed.BuildingBlocks.Messaging;
 using MassTransit;
 using Moq;
 

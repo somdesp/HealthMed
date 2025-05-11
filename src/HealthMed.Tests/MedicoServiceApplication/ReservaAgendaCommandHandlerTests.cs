@@ -1,11 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using HealthMed.MedicoService.Application.Contracts.Persistence;
 using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.ReservaAgenda;
 using HealthMed.MedicoService.Domain.Entities;
 using Moq;
-using Xunit;
 
 namespace HealthMed.Tests.MedicoServiceApplication;
 
