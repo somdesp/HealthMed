@@ -6,21 +6,21 @@ using MediatR;
 
 namespace HealthMed.MedicoService.Application.UseCases.Agendas.Queries;
 
-public class MinhaAgendaQueryHandler : IRequestHandler<MinhaAgendaQuery, BuscaAgendasMedicoResponse>
+public class BuscaAgendaReservadaMedicoQueryHandler : IRequestHandler<BuscaAgendaReservadaMedicoQuery, BuscaAgendasMedicoResponse>
 {
     private readonly IAgendaRepository _agendaRepository;
     private readonly IMapper _mapper;
 
-    public MinhaAgendaQueryHandler(IAgendaRepository agendaRepository, IMapper mapper)
+    public BuscaAgendaReservadaMedicoQueryHandler(IAgendaRepository agendaRepository, IMapper mapper)
     {
         _agendaRepository = agendaRepository;
         _mapper = mapper;
     }
 
-    public async Task<BuscaAgendasMedicoResponse> Handle(MinhaAgendaQuery request, CancellationToken cancellationToken)
+    public async Task<BuscaAgendasMedicoResponse> Handle(BuscaAgendaReservadaMedicoQuery request, CancellationToken cancellationToken)
     {
         var agendas = _mapper.Map<IEnumerable<AgendaDisponivelDto>>(
-            await _agendaRepository.GetAsync(a => a.MedicoId == request.MedicoId)
+            await _agendaRepository.GetAsync(a => a.MedicoId == request.MedicoId && a.Reservada)
             );
 
         var response = new BuscaAgendasMedicoResponse

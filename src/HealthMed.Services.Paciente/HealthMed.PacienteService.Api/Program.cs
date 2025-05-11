@@ -1,18 +1,41 @@
 
 
 using HealthMed.BuildingBlocks.Configurations;
+using HealthMed.PacienteService.Api.Consumers;
+using HealthMed.PacienteService.Application;
 using HealthMed.PacienteService.Infrastructure;
 using HealthMed.PacienteService.Infrastructure.Persistence;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using HealthMed.PacienteService.Application;
 using Prometheus;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSecurity(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddMassTransitExtensionDefault(builder.Configuration);
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSecurity(builder.Configuration);
+builder.Services.AddMassTransit(opt =>
+{
+    opt.SetKebabCaseEndpointNameFormatter();
+    opt.AddConsumer<BuscaPacientesConsumer>();
+
+    opt.UsingRabbitMq(
+        (context, cfg) =>
+        {
+            cfg.ConfigureJsonSerializerOptions(json =>
+            {
+                json.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                json.WriteIndented = true;
+                return json;
+            });
+
+            cfg.Host(builder.Configuration.GetConnectionString("RabbitMq"));
+            cfg.ConfigureEndpoints(context, new KebabCaseEndpointNameFormatter("fiap", false));
+            cfg.UseMessageRetry(retry => { retry.Interval(3, TimeSpan.FromSeconds(5)); });
+        });
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

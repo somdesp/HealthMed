@@ -3,7 +3,7 @@ using MediatR;
 
 namespace HealthMed.MedicoService.Application.UseCases.Agendas.Queries;
 
-public class MinhaAgendaQuery : IRequest<BuscaAgendasMedicoResponse>
+public class BuscaAgendaReservadaMedicoQuery : IRequest<BuscaAgendasMedicoResponse>
 {
     public int MedicoId { get; set; }
 }

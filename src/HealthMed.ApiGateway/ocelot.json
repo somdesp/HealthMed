@@ -152,9 +152,31 @@
       ],
       "UpstreamPathTemplate": "/Medico/BuscaMinhasAgendas",
       "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Agendamento/aceita-recusa/{agendamentoId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44393
+        }
+      ],
+      "UpstreamPathTemplate": "/Medico/AceitaRecusaAgendamento/{agendamentoId}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Agendamento/medico",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44393
+        }
+      ],
+      "UpstreamPathTemplate": "/Medico/MeusAgendamentos",
+      "UpstreamHttpMethod": [ "GET" ]
     }
-
-
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:44390"

@@ -1,6 +1,5 @@
-﻿using HealthMed.AgendamentoService.Application.Exceptions;
-using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.AceitaRecusaAgendamento;
-﻿using FluentValidation;
+﻿using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.AceitaRecusaAgendamento;
+using FluentValidation;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.CancelaAgendamento;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.NovoAgendamento;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Queries.BuscaAgendamentosMedico;
@@ -54,7 +53,7 @@ public class AgendamentoController : ControllerBase
     }
 
     [HttpPut("aceita-recusa/{agendamentoId:int}")]
-    [Authorize(Roles = "Paciente")]
+    [Authorize(Roles = "Medico")]
     public async Task<ActionResult> AceitaRecusaAgendamento([FromRoute] int agendamentoId, [FromBody] AceitaRecusaAgendamentoCommandRequest request)
     {
         try
@@ -68,14 +67,13 @@ public class AgendamentoController : ControllerBase
         }
     }
 
-    [HttpGet("paciente/{pacienteId:int}")]
     [HttpGet("paciente/MeusAgendamentos")]
     [Authorize(Roles = "Paciente")]
-    public async Task<ActionResult> MeusAgendamentos()
+    public async Task<ActionResult> AgendamentosPaciente()
     {
         try
         {
-            var result = await _mediator.Send(new BuscaMeusAgendamentosQuery { PacienteId = _appUsuario.GetUsuarioId() });
+            var result = await _mediator.Send(new BuscaAgendamentosPacienteQuery { PacienteId = _appUsuario.GetUsuarioId() });
             return Ok(result);
         }
         catch (ValidationException ex)
@@ -84,14 +82,14 @@ public class AgendamentoController : ControllerBase
         }
     }
 
-    [HttpGet("medico/{medicoId:int}")]
+    [HttpGet("medico")]
     [Authorize(Roles = "Medico")]
-    public async Task<ActionResult> AgendamentosMedico(int medicoId)
+    public async Task<ActionResult> AgendamentosMedico()
     {
         try
         {
-            await _mediator.Send(new BuscaAgendamentosMedicoQuery { MedicoId = medicoId });
-            return Ok();
+            var result = await _mediator.Send(new BuscaAgendamentosMedicoQuery { MedicoId = _appUsuario.GetUsuarioId() });
+            return Ok(result);
         }
         catch (ValidationException ex)
         {

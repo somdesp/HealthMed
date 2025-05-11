@@ -16,7 +16,7 @@ public class BuscaAgendasMedicoConsumer : IConsumer<BuscaAgendasMedicoRequest>
 
     public async Task Consume(ConsumeContext<BuscaAgendasMedicoRequest> context)
     {
-        var agendas = await _mediator.Send(new MinhaAgendaQuery { MedicoId = context.Message.MedicoId });
+        var agendas = await _mediator.Send(new BuscaAgendaReservadaMedicoQuery { MedicoId = context.Message.MedicoId });
 
         await context.RespondAsync(agendas);
     }

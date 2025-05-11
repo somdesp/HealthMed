@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HealthMed.AgendamentoService.Application.Contracts.Persistence;
 using HealthMed.AgendamentoService.Application.Dtos;
+using HealthMed.AgendamentoService.Domain.Entities.Enums;
 using HealthMed.BuildingBlocks.Authorization;
 using HealthMed.BuildingBlocks.Contracts.Requests;
 using HealthMed.BuildingBlocks.Contracts.Responses;
@@ -9,14 +10,14 @@ using MediatR;
 
 namespace HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Queries.BuscaMeusAgendamentos;
 
-public class BuscaMeusAgendamentosQueryHandler : IRequestHandler<BuscaMeusAgendamentosQuery, IEnumerable<MeusAgendamentosDto>>
+public class BuscaAgendamentosPacienteQueryHandler : IRequestHandler<BuscaAgendamentosPacienteQuery, IEnumerable<MeusAgendamentosPacienteDto>>
 {
     private readonly IAppUsuario _appUsuario;
     private readonly IMapper _mapper;
     private readonly IAgendamentoRepository _agendamentoRepository;
     private readonly IRequestClient<BuscaMedicoPorAgendasRequest> _requestClient;
 
-    public BuscaMeusAgendamentosQueryHandler(
+    public BuscaAgendamentosPacienteQueryHandler(
         IAppUsuario appUsuario,
         IMapper mapper,
         IAgendamentoRepository agendamentoRepository,
@@ -29,24 +30,26 @@ public class BuscaMeusAgendamentosQueryHandler : IRequestHandler<BuscaMeusAgenda
         _requestClient = requestClient;
     }
 
-    public async Task<IEnumerable<MeusAgendamentosDto>> Handle(BuscaMeusAgendamentosQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<MeusAgendamentosPacienteDto>> Handle(BuscaAgendamentosPacienteQuery request, CancellationToken cancellationToken)
     {
         var agendamentos = await
-            _agendamentoRepository.GetAsync(a => a.PacienteId == _appUsuario.GetUsuarioId());
+            _agendamentoRepository.GetAsync(a => a.PacienteId == _appUsuario.GetUsuarioId()
+            && (a.Status == AgendamentoStatus.Confirmado || a.Status == AgendamentoStatus.Pendente));
 
         var response = await _requestClient.GetResponse<MeusAgendamentosResponse>(
             new BuscaMedicoPorAgendasRequest(agendamentos.Select(x => x.AgendaId)));
 
         var result = (from ma in response.Message.Agendamentos
                       join ag in agendamentos on ma.AgendaId equals ag.AgendaId
-                      select new MeusAgendamentosDto
+                      select new MeusAgendamentosPacienteDto
                       {
                           Id = ag.Id,
                           AgendaId = ma.AgendaId,
                           Medico = ma.Medico,
                           ValorConsulta = ma.ValorConsulta,
                           DataHora = ma.DataHora,
-                          Especialidade = ma.Especialidade
+                          Especialidade = ma.Especialidade,
+                          Status = ag.Status.ToString()
                       }).ToList();
 
 

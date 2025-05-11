@@ -6,16 +6,16 @@ namespace HealthMed.PacienteService.Infrastructure.Persistence;
 
 public class PacienteContextFactory : IDesignTimeDbContextFactory<PacienteContext>
 {
-    private readonly IConfiguration _configuration;
-
-    public PacienteContextFactory(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
     public PacienteContext CreateDbContext(string[] args)
     {
+        IConfigurationRoot configuration = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory()) // importante
+        .AddJsonFile("appsettings.json", true)
+        .Build();
+
+        var connectionString = configuration.GetConnectionString("PacienteConnectionString");
         var optionsBuilder = new DbContextOptionsBuilder<PacienteContext>();
-        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("PacienteConnectionString"));
+        optionsBuilder.UseSqlServer(connectionString);
 
         return new PacienteContext(optionsBuilder.Options);
     }

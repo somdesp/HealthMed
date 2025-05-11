@@ -28,7 +28,7 @@ public class AgendaController : ControllerBase
     {
         try
         {
-            var result = await _mediator.Send(new MinhaAgendaQuery { MedicoId = _appUsuario.GetUsuarioId() });
+            var result = await _mediator.Send(new BuscaAgendaDisponivelMedicoQuery { MedicoId = _appUsuario.GetUsuarioId() });
             return Ok(result);
         }
         catch (ValidationException ex)

@@ -12,7 +12,7 @@ public class MappingProfile : Profile
     {
 
         CreateMap<NovoAgendamentoCommandRequest, Agendamento>();
-        CreateMap<Agendamento, MeusAgendamentosResponseDto>();
+        CreateMap<Agendamento, MeusAgendamentosMedicoDto>();
         CreateMap<CancelaAgendamentoCommandRequest, Agendamento>();
     }
 }

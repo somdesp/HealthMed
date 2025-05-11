@@ -11,7 +11,6 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpContextAccessor();
-
 builder.Services.AddSecurity(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -30,11 +29,8 @@ builder.Services.AddMassTransit(opt =>
             });
 
             cfg.Host(builder.Configuration.GetConnectionString("RabbitMq"));
-            cfg.ServiceInstance(instance =>
-            {
-                instance.ConfigureJobServiceEndpoints();
-                instance.ConfigureEndpoints(context, new KebabCaseEndpointNameFormatter("fiap", false));
-            });
+            cfg.ConfigureEndpoints(context, new KebabCaseEndpointNameFormatter("fiap", false));
+            cfg.UseMessageRetry(retry => { retry.Interval(3, TimeSpan.FromSeconds(5)); });
         });
 
 });

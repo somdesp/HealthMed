@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HealthMed.BuildingBlocks.Messaging;
 using HealthMed.MedicoService.Application.Contracts.Persistence;
+using HealthMed.MedicoService.Domain.Entities;
 using HealthMed.MedicoServiceService.Domain.Entities;
 using MassTransit;
 using MediatR;
@@ -25,12 +26,9 @@ public class DeletaAgendaCommandHandler : IRequestHandler<DeletaAgendaCommandReq
 
     public async Task Handle(DeletaAgendaCommandRequest request, CancellationToken cancellationToken)
     {
-        var agenda = _mapper.Map<AgendaMedico>(request);
-        // await _agendaRepository.DeleteAsync(agenda);
+        var agenda = await _agendaRepository.FirstOrDefaultAsync(x => x.Id == request.Id && x.MedicoId == request.MedicoId && !x.Reservada);
+        if (agenda != null)
+            await _agendaRepository.DeleteAsync(agenda);
 
-        await _publishEndpoint.Publish(
-            new DeletaAgendamentoEvent(
-                agenda.Id)
-            );
     }
 }

@@ -24,21 +24,21 @@ public class AgendaDisponivelQueryHandlerTests
     [Fact]
     public async Task Handle_ShouldReturnAvailableAgendas_WhenAgendasExist()
     {
-        // Arrange
+        // Arrange  
         var medicoId = 1;
         var request = new AgendaDisponivelQuery { MedicoId = medicoId };
 
         var agendaEntities = new List<AgendaMedico>
-        {
-            new() { Id = 1, MedicoId = medicoId, Reservada = false },
-            new() { Id = 2, MedicoId = medicoId, Reservada = false }
-        };
+       {
+           new() { Id = 1, MedicoId = medicoId, Reservada = false },
+           new() { Id = 2, MedicoId = medicoId, Reservada = false }
+       };
 
         var agendaDtos = new List<AgendaDisponivelDto>
-        {
-            new() { Id = 1, MedicoId = medicoId },
-            new() { Id = 2, MedicoId = medicoId }
-        };
+       {
+           new() { Id = 1, MedicoId = medicoId, Medico = "Dr. Example", DataHora = DateTime.Now, ValorConsulta = 100.0 },
+           new() { Id = 2, MedicoId = medicoId, Medico = "Dr. Example", DataHora = DateTime.Now, ValorConsulta = 100.0 }
+       };
 
         _agendaRepositoryMock
             .Setup(repo => repo.GetAsync(It.IsAny<Expression<Func<AgendaMedico, bool>>>()))
@@ -48,10 +48,10 @@ public class AgendaDisponivelQueryHandlerTests
             .Setup(mapper => mapper.Map<IEnumerable<AgendaDisponivelDto>>(agendaEntities))
             .Returns(agendaDtos);
 
-        // Act
+        // Act  
         var result = await _handler.Handle(request, CancellationToken.None);
 
-        // Assert
+        // Assert  
         Assert.NotNull(result);
         Assert.Equal(agendaDtos.Count, result.Count());
         Assert.Equal(agendaDtos, result);

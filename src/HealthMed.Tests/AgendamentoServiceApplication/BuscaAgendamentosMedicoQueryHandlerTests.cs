@@ -58,7 +58,7 @@ namespace HealthMed.AgendamentoService.Tests.UseCases.Agendamentos.Queries
                 new() { Id = 2, AgendaId = 20 }
             };
 
-            var mappedAgendamentos = new List<MeusAgendamentosResponseDto>
+            var mappedAgendamentos = new List<MeusAgendamentosMedicoDto>
             {
                 new() { Id = 1, DataHora = new DateTime(2025, 12, 31) },
                 new() { Id = 2, DataHora = new DateTime(2025, 12, 31) }
@@ -73,7 +73,7 @@ namespace HealthMed.AgendamentoService.Tests.UseCases.Agendamentos.Queries
                 .ReturnsAsync(agendamentos);
 
             _mapperMock
-                .Setup(mapper => mapper.Map<IEnumerable<MeusAgendamentosResponseDto>>(agendamentos))
+                .Setup(mapper => mapper.Map<IEnumerable<MeusAgendamentosMedicoDto>>(agendamentos))
                 .Returns(mappedAgendamentos);
 
             // Act
@@ -87,7 +87,7 @@ namespace HealthMed.AgendamentoService.Tests.UseCases.Agendamentos.Queries
                 It.Is<BuscaAgendasMedicoRequest>(r => r.MedicoId == medicoId), default, default), Times.Once);
 
             _agendamentoRepositoryMock.Verify(repo => repo.GetAsync(It.IsAny<System.Linq.Expressions.Expression<System.Func<Agendamento, bool>>>()), Times.Once);
-            _mapperMock.Verify(mapper => mapper.Map<IEnumerable<MeusAgendamentosResponseDto>>(agendamentos), Times.Once);
+            _mapperMock.Verify(mapper => mapper.Map<IEnumerable<MeusAgendamentosMedicoDto>>(agendamentos), Times.Once);
         }
 
         [Fact]
@@ -111,8 +111,8 @@ namespace HealthMed.AgendamentoService.Tests.UseCases.Agendamentos.Queries
                 .ReturnsAsync(new List<Agendamento>());
 
             _mapperMock
-                .Setup(mapper => mapper.Map<IEnumerable<MeusAgendamentosResponseDto>>(It.IsAny<IEnumerable<Agendamento>>()))
-                .Returns(new List<MeusAgendamentosResponseDto>());
+                .Setup(mapper => mapper.Map<IEnumerable<MeusAgendamentosMedicoDto>>(It.IsAny<IEnumerable<Agendamento>>()))
+                .Returns(new List<MeusAgendamentosMedicoDto>());
 
             // Act
             var result = await _handler.Handle(request, CancellationToken.None);
@@ -125,7 +125,7 @@ namespace HealthMed.AgendamentoService.Tests.UseCases.Agendamentos.Queries
                 It.Is<BuscaAgendasMedicoRequest>(r => r.MedicoId == medicoId), default, default), Times.Once);
 
             _agendamentoRepositoryMock.Verify(repo => repo.GetAsync(It.IsAny<System.Linq.Expressions.Expression<System.Func<Agendamento, bool>>>()), Times.Once);
-            _mapperMock.Verify(mapper => mapper.Map<IEnumerable<MeusAgendamentosResponseDto>>(It.IsAny<IEnumerable<Agendamento>>()), Times.Once);
+            _mapperMock.Verify(mapper => mapper.Map<IEnumerable<MeusAgendamentosMedicoDto>>(It.IsAny<IEnumerable<Agendamento>>()), Times.Once);
         }
     }
 }

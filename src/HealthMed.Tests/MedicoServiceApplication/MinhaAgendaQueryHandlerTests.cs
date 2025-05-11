@@ -13,13 +13,13 @@ public class MinhaAgendaQueryHandlerTests
 {
     private readonly Mock<IAgendaRepository> _agendaRepositoryMock;
     private readonly Mock<IMapper> _mapperMock;
-    private readonly MinhaAgendaQueryHandler _handler;
+    private readonly BuscaAgendaReservadaMedicoQueryHandler _handler;
 
     public MinhaAgendaQueryHandlerTests()
     {
         _agendaRepositoryMock = new Mock<IAgendaRepository>();
         _mapperMock = new Mock<IMapper>();
-        _handler = new MinhaAgendaQueryHandler(_agendaRepositoryMock.Object, _mapperMock.Object);
+        _handler = new BuscaAgendaReservadaMedicoQueryHandler(_agendaRepositoryMock.Object, _mapperMock.Object);
     }
 
     [Fact]
@@ -27,7 +27,7 @@ public class MinhaAgendaQueryHandlerTests
     {
         // Arrange
         var medicoId = 1;
-        var request = new MinhaAgendaQuery { MedicoId = medicoId };
+        var request = new BuscaAgendaReservadaMedicoQuery { MedicoId = medicoId };
 
         var agendaEntities = new List<AgendaMedico>
         {
@@ -35,10 +35,12 @@ public class MinhaAgendaQueryHandlerTests
             new() { Id = 2, MedicoId = medicoId, DataHora = new DateTime(2025, 12, 31) }
         };
 
+        // Fix for CS9035: Add the required 'Medico' property initialization in the object initializers.
+
         var agendaDtos = new List<AgendaDisponivelDto>
         {
-            new() { Id = 1, MedicoId = medicoId, DataHora = new DateTime(2025, 12, 31) },
-            new() { Id = 2, MedicoId = medicoId, DataHora = new DateTime(2025, 12, 31) }
+           new() { Id = 1, MedicoId = medicoId, DataHora = new DateTime(2025, 12, 31), Medico = "Dr. Example", ValorConsulta = 100.0 },
+           new() { Id = 2, MedicoId = medicoId, DataHora = new DateTime(2025, 12, 31), Medico = "Dr. Example", ValorConsulta = 100.0 }
         };
 
         var agendaResponses = new List<AgendaResponse>
@@ -75,7 +77,7 @@ public class MinhaAgendaQueryHandlerTests
     {
         // Arrange
         var medicoId = 1;
-        var request = new MinhaAgendaQuery { MedicoId = medicoId };
+        var request = new BuscaAgendaReservadaMedicoQuery { MedicoId = medicoId };
 
         _agendaRepositoryMock
             .Setup(repo => repo.GetAsync(a => a.MedicoId == medicoId))

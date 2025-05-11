@@ -12,7 +12,7 @@ public class MedicoRepository : Repository<Medico>, IMedicoRepository
 
     public async Task<IEnumerable<Medico>> BuscaEspecialidade(string nome)
     {
-        var especialidades = await _medicoContexto.Especialidades.Where(x => x.Nome.Contains(nome)).ToListAsync();
+        var especialidades = await _medicoContexto.Especialidades.Where(x => EF.Functions.Collate(x.Nome, "Latin1_General_CI_AI").Contains(nome)).ToListAsync();
         var especialidadeId = especialidades.Select(x => x.Id).ToArray();
 
         var result = await _medicoContexto.Medicos.Include(x => x.Especialidade).Where(x => especialidadeId.Contains(x.EspecialidadeId)).ToListAsync();
