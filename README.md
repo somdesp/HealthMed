@@ -1,6 +1,6 @@
 Health&Med
 
-✅ Requisitos Funcionais (RF)
+## ✅ Requisitos Funcionais (RF)
 
 RF01 - Cadastro de Pacientes
 O sistema deve permitir o cadastro de pacientes com informações como nome, CPF, data de nascimento, e-mail, telefone e endereço.
@@ -32,7 +32,7 @@ O sistema deve possuir um mecanismo de autenticação para acesso por médicos, 
 RF10 - Fila de Processamento Assíncrona
 O sistema deve processar notificações e atualizações de agenda via fila (RabbitMQ), desacoplando essas tarefas da interface principal.
 
-✅ Requisitos Não Funcionais (RNF)
+## ✅ Requisitos Não Funcionais (RNF)
 
 RNF01 - Escalabilidade
 A arquitetura do sistema deve ser escalável horizontalmente, permitindo a adição de novos serviços conforme a demanda crescer.
@@ -52,29 +52,34 @@ O sistema deve realizar backups diários e permitir recuperação em caso de fal
 RNF06 - Observabilidade
 Logs, métricas e monitoramento devem ser implementados para garantir visibilidade sobre o funcionamento do sistema.
 
-🧩 Justificativas Técnicas da Arquitetura
-🔹 Linguagem e Plataforma
+## 🧩 **Justificativas Técnicas da Arquitetura**
+### 🔹 Linguagem e Plataforma
 .NET 8: escolhida pela robustez, suporte a APIs modernas, alta performance com WebAPI minimalista, e facilidade de manutenção.
 
 ASP.NET Core WebAPI: Para expor os serviços RESTful e manter o backend desacoplado do front-end.
 
-🔹 Banco de Dados
+### 🔹 Banco de Dados
 SQL Server: banco relacional robusto e confiável para manter consistência de dados críticos como registros de pacientes, médicos e consultas.
 
-🔹 Mensageria
+### 🔹 Mensageria
 RabbitMQ: utilizado para garantir o processamento assíncrono de tarefas como envio de e-mails e notificações, melhorando a performance e escalabilidade do sistema.
 
-🔹 Microsserviço
+### 🔹 Microsserviço
 Uma arquitetura orientada a serviços, separando os domínios de “Agendamento”, “Notificação”, “Autenticação”, etc.
 
-🔹 Deploy e Escalabilidade
+### 🔹 Deploy e Escalabilidade
 Containers (Docker): facilitam o deploy em ambientes padronizados.
 
 Kubernetes : para orquestração em produção.
 
-🔹 Segurança
+### 🔹 Segurança
 Autenticação via JWT
 
 Comunicação segura com HTTPS
 
 Restrições de acesso por perfil de usuário
+
+## Arquitetura da solução:
+
+![diagram_clean_architecture](https://github.com/user-attachments/assets/6ef54726-5386-4972-9348-32249ab430cd)
+
