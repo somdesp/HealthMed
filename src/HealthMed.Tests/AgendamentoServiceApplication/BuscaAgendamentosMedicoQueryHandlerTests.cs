@@ -21,6 +21,8 @@ namespace HealthMed.AgendamentoService.Tests.UseCases.Agendamentos.Queries
         private readonly Mock<IMapper> _mapperMock;
         private readonly Mock<IAgendamentoRepository> _agendamentoRepositoryMock;
         private readonly Mock<IRequestClient<BuscaAgendasMedicoRequest>> _requestClientMock;
+        private readonly Mock<IRequestClient<PacientesRequest>> _requestPacienteClientMock;
+
         private readonly BuscaAgendamentosMedicoQueryHandler _handler;
 
         public BuscaAgendamentosMedicoQueryHandlerTests()
@@ -28,11 +30,14 @@ namespace HealthMed.AgendamentoService.Tests.UseCases.Agendamentos.Queries
             _mapperMock = new Mock<IMapper>();
             _agendamentoRepositoryMock = new Mock<IAgendamentoRepository>();
             _requestClientMock = new Mock<IRequestClient<BuscaAgendasMedicoRequest>>();
+            _requestPacienteClientMock = new Mock<IRequestClient<PacientesRequest>>();
+
             _handler = new BuscaAgendamentosMedicoQueryHandler(
-                Mock.Of<IAppUsuario>(), // Não utilizado diretamente no método
+                Mock.Of<IAppUsuario>(),
                 _mapperMock.Object,
                 _agendamentoRepositoryMock.Object,
-                _requestClientMock.Object
+                _requestClientMock.Object,
+                _requestPacienteClientMock.Object
             );
         }
 

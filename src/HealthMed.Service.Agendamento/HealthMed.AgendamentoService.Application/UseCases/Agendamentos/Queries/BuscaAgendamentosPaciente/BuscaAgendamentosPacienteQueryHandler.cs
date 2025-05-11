@@ -8,7 +8,7 @@ using HealthMed.BuildingBlocks.Contracts.Responses;
 using MassTransit;
 using MediatR;
 
-namespace HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Queries.BuscaMeusAgendamentos;
+namespace HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Queries.BuscaAgendamentosPaciente;
 
 public class BuscaAgendamentosPacienteQueryHandler : IRequestHandler<BuscaAgendamentosPacienteQuery, IEnumerable<MeusAgendamentosPacienteDto>>
 {

@@ -9,7 +9,7 @@ public class AgendamentoContextFactory : IDesignTimeDbContextFactory<Agendamento
     public AgendamentoContext CreateDbContext(string[] args)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
-          .SetBasePath(Directory.GetCurrentDirectory()) // importante
+          .SetBasePath(Directory.GetCurrentDirectory())
           .AddJsonFile("appsettings.json", true)
           .Build();
 

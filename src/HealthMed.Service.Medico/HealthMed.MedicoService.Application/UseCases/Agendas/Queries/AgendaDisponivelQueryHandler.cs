@@ -28,7 +28,7 @@ public class AgendaDisponivelQueryHandler : IRequestHandler<AgendaDisponivelQuer
                           DataHora = ad.DataHora,
                           Id = ad.Id,
                           MedicoId = ad.MedicoId,
-                          Medico = ad.Medico.Nome,
+                          Medico = ad.Medico!.Nome,
                           ValorConsulta = ad.Medico.ValorConsulta
                       }).ToList();
 

@@ -9,7 +9,7 @@ public class MedicoContextFactory : IDesignTimeDbContextFactory<MedicoContext>
     public MedicoContext CreateDbContext(string[] args)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory()) // importante
+                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true)
                 .Build();
 

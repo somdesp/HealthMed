@@ -1,5 +1,4 @@
 using HealthMed.AgendamentoService.Api.Consumers;
-using HealthMed.AgendamentoService.Application;
 using HealthMed.AgendamentoService.Infrastructure;
 using HealthMed.AgendamentoService.Infrastructure.Persistence;
 using HealthMed.BuildingBlocks.Configurations;

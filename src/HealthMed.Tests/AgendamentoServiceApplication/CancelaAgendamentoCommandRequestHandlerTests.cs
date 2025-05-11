@@ -25,7 +25,7 @@ public class CancelaAgendamentoCommandRequestHandlerTests
         _handler = new CancelaAgendamentoCommandRequestHandler(
             _agendamentoRepositoryMock.Object,
             _mapperMock.Object,
-            Mock.Of<IAppUsuario>(), // Mock vazio para IAppUsuario, já que não é usado diretamente no método
+            Mock.Of<IAppUsuario>(),
             _publishEndpointMock.Object
         );
     }
@@ -43,7 +43,7 @@ public class CancelaAgendamentoCommandRequestHandlerTests
         var agendamento = new Agendamento
         {
             Id = request.AgendamentoId,
-            Status = AgendamentoStatus.Pendente
+            Status = AgendamentoStatus.Cancelado
         };
 
         _mapperMock

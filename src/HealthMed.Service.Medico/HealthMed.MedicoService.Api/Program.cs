@@ -1,6 +1,5 @@
 using HealthMed.BuildingBlocks.Configurations;
 using HealthMed.MedicoService.Api.Consumers;
-using HealthMed.MedicoService.Application;
 using HealthMed.MedicoService.Infrastructure;
 using HealthMed.MedicoService.Infrastructure.Persistence;
 using MassTransit;
@@ -22,8 +21,6 @@ builder.Services.AddMassTransit(opt =>
     opt.AddConsumer<AgendamentoCanceladoConsumer>();
     opt.AddConsumer<BuscaAgendasMedicoConsumer>();
     opt.AddConsumer<BuscaMedicoPorAgendasConsumer>();
-
-
 
     opt.UsingRabbitMq(
         (context, cfg) =>

@@ -2,7 +2,6 @@
 
 using HealthMed.BuildingBlocks.Configurations;
 using HealthMed.PacienteService.Api.Consumers;
-using HealthMed.PacienteService.Application;
 using HealthMed.PacienteService.Infrastructure;
 using HealthMed.PacienteService.Infrastructure.Persistence;
 using MassTransit;
@@ -41,11 +40,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfiguration();
 
-
 var app = builder.Build();
 app.UseMetricServer();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")
 {
     app.UseSwagger();

@@ -1,9 +1,9 @@
-﻿using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.AceitaRecusaAgendamento;
-using FluentValidation;
+﻿using FluentValidation;
+using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.AceitaRecusaAgendamento;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.CancelaAgendamento;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Commands.NovoAgendamento;
 using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Queries.BuscaAgendamentosMedico;
-using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Queries.BuscaMeusAgendamentos;
+using HealthMed.AgendamentoService.Application.UseCases.Agendamentos.Queries.BuscaAgendamentosPaciente;
 using HealthMed.BuildingBlocks.Authorization;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
