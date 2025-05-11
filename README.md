@@ -81,5 +81,4 @@ Restrições de acesso por perfil de usuário
 
 ## Arquitetura da solução:
 
-![diagram_clean_architecture](https://github.com/user-attachments/assets/6ef54726-5386-4972-9348-32249ab430cd)
-
+![Screenshot_1](https://github.com/user-attachments/assets/38d63ece-34a4-4eec-bf89-a55655d75a29)
