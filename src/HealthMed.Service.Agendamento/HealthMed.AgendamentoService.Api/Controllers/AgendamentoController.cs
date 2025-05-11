@@ -52,7 +52,7 @@ public class AgendamentoController : ControllerBase
         }
     }
 
-    [HttpPut("aceita-recusa/{agendamentoId:int}")]
+    [HttpPut("AceitaRecusaAgendamento/{agendamentoId:int}")]
     [Authorize(Roles = "Medico")]
     public async Task<ActionResult> AceitaRecusaAgendamento([FromRoute] int agendamentoId, [FromBody] AceitaRecusaAgendamentoCommandRequest request)
     {
@@ -82,7 +82,7 @@ public class AgendamentoController : ControllerBase
         }
     }
 
-    [HttpGet("medico")]
+    [HttpGet("medico/MeusAgendamentos")]
     [Authorize(Roles = "Medico")]
     public async Task<ActionResult> AgendamentosMedico()
     {

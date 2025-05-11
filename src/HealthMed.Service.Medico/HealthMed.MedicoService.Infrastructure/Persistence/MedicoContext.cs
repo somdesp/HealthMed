@@ -1,6 +1,5 @@
 ﻿using HealthMed.BuildingBlocks.Messaging;
 using HealthMed.MedicoService.Domain.Entities;
-using HealthMed.MedicoServiceService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace HealthMed.MedicoService.Infrastructure.Persistence;

@@ -5,7 +5,7 @@ using HealthMed.MedicoService.Application.UseCases.Medicos.Commands.BuscaEspecia
 using HealthMed.MedicoService.Domain.Entities;
 using Moq;
 
-namespace HealthMed.MedicoService.Tests.UseCases.Medicos.Commands
+namespace HealthMed.Tests.MedicoServiceApplication
 {
     public class BuscaMedicoPorEspecialidadeCommandHandlerTests
     {

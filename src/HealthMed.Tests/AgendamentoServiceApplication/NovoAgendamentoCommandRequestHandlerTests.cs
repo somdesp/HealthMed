@@ -8,7 +8,7 @@ using HealthMed.BuildingBlocks.Messaging;
 using MassTransit;
 using Moq;
 
-namespace HealthMed.AgendamentoService.Tests.UseCases.Agendamentos.Commands;
+namespace HealthMed.Tests.AgendamentoServiceApplication;
 
 public class NovoAgendamentoCommandRequestHandlerTests
 {

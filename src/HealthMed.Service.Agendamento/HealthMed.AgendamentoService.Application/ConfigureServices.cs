@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace HealthMed.BuildingBlocks.Configurations;
+namespace HealthMed.AgendamentoService.Application;
 
 public static class ConfigureServices
 {

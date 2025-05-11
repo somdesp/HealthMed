@@ -1,4 +1,4 @@
-﻿using HealthMed.MedicoServiceService.Domain.Entities;
+﻿using HealthMed.MedicoService.Domain.Entities;
 
 namespace HealthMed.MedicoService.Application.Contracts.Persistence;
 

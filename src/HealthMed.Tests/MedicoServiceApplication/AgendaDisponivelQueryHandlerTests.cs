@@ -2,11 +2,11 @@
 using HealthMed.MedicoService.Application.Contracts.Persistence;
 using HealthMed.MedicoService.Application.Dtos;
 using HealthMed.MedicoService.Application.UseCases.Agendas.Queries;
-using HealthMed.MedicoServiceService.Domain.Entities;
+using HealthMed.MedicoService.Domain.Entities;
 using Moq;
 using System.Linq.Expressions;
 
-namespace HealthMed.MedicoService.Tests.UseCases.Agendas.Queries;
+namespace HealthMed.Tests.MedicoServiceApplication;
 
 public class AgendaDisponivelQueryHandlerTests
 {

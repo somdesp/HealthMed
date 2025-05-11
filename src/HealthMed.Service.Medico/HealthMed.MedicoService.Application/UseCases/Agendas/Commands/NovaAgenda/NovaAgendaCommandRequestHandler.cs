@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using HealthMed.MedicoService.Application.Contracts.Persistence;
-using HealthMed.MedicoServiceService.Domain.Entities;
+using HealthMed.MedicoService.Domain.Entities;
 using MediatR;
 
 namespace HealthMed.MedicoService.Application.UseCases.Agendas.Commands.NovaAgenda;

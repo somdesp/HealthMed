@@ -9,7 +9,7 @@ using HealthMed.MedicoService.Domain.Entities;
 using Moq;
 using Xunit;
 
-namespace HealthMed.MedicoService.Tests.UseCases.Medicos.Commands
+namespace HealthMed.Tests.MedicoServiceApplication
 {
     public class BuscaMedicoPorNomeCommandHandlerTests
     {

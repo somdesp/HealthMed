@@ -1,5 +1,6 @@
 using HealthMed.BuildingBlocks.Configurations;
 using HealthMed.MedicoService.Api.Consumers;
+using HealthMed.MedicoService.Application;
 using HealthMed.MedicoService.Infrastructure;
 using HealthMed.MedicoService.Infrastructure.Persistence;
 using MassTransit;

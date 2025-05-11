@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
-using HealthMed.BuildingBlocks.Messaging;
 using HealthMed.MedicoService.Application.Contracts.Persistence;
-using HealthMed.MedicoService.Domain.Entities;
-using HealthMed.MedicoServiceService.Domain.Entities;
 using MassTransit;
 using MediatR;
 

@@ -9,11 +9,11 @@
           "Port": 44391
         }
       ],
-      "UpstreamPathTemplate": "/paciente/Login",
+      "UpstreamPathTemplate": "/Paciente/Login",
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/medico/BuscaMedico",
+      "DownstreamPathTemplate": "/api/Agenda/BuscaAgendaDisponivelMedico",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -21,45 +21,7 @@
           "Port": 44392
         }
       ],
-      "UpstreamPathTemplate": "/BuscaMedico",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/medico/BuscaEspecialidade/{especialidade}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44392
-        }
-      ],
-      "UpstreamPathTemplate": "/BuscaMedicoPorEspecialidade/{especialidade}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/Login",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44392
-        }
-      ],
-      "UpstreamPathTemplate": "/medico/Login",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/Agenda/agenda/{medicoId}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44392
-        }
-      ],
-      "UpstreamPathTemplate": "/BuscaAgendaPorMedicoId/{medicoId}",
+      "UpstreamPathTemplate": "/Medico/BuscaMinhasAgendas",
       "UpstreamHttpMethod": [ "GET" ]
     },
 
@@ -72,62 +34,9 @@
           "Port": 44392
         }
       ],
-      "UpstreamPathTemplate": "/medico/NovaAgenda",
+      "UpstreamPathTemplate": "/Medico/NovaAgenda",
       "UpstreamHttpMethod": [ "POST" ]
     },
-
-    {
-      "DownstreamPathTemplate": "/api/Agenda/{agendaId}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44392
-        }
-      ],
-      "UpstreamPathTemplate": "/medico/AlteraAgenda/{agendaId}",
-      "UpstreamHttpMethod": [ "PUT" ]
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/Agendamento",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44393
-        }
-      ],
-      "UpstreamPathTemplate": "/paciente/NovoAgendamento",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/Agendamento/paciente/MeusAgendamentos",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44393
-        }
-      ],
-      "UpstreamPathTemplate": "/paciente/MeusAgendamentos",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/Agendamento/cancela",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44393
-        }
-      ],
-      "UpstreamPathTemplate": "/paciente/CancelaAgendamento",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-
     {
       "DownstreamPathTemplate": "/api/Agenda/{agendaId}",
       "DownstreamScheme": "https",
@@ -140,9 +49,8 @@
       "UpstreamPathTemplate": "/Medico/DeletaAgenda/{agendaId}",
       "UpstreamHttpMethod": [ "DELETE" ]
     },
-
     {
-      "DownstreamPathTemplate": "/api/Agenda/minha-agendas",
+      "DownstreamPathTemplate": "/api/Agenda/BuscaAgendaPorMedicoId/{medicoId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -150,11 +58,102 @@
           "Port": 44392
         }
       ],
-      "UpstreamPathTemplate": "/Medico/BuscaMinhasAgendas",
+      "UpstreamPathTemplate": "/Paciente/BuscaAgendaPorMedicoId/{medicoId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/Agendamento/aceita-recusa/{agendamentoId}",
+      "DownstreamPathTemplate": "/api/Medico/BuscaMedico",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44392
+        }
+      ],
+      "UpstreamPathTemplate": "/Paciente/BuscaMedicoPorNome",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Medico/BuscaEspecialidade/{especialidade}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44392
+        }
+      ],
+      "UpstreamPathTemplate": "/Paciente/BuscaMedicoPorEspecialidade/{especialidade}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44392
+        }
+      ],
+      "UpstreamPathTemplate": "/Medico/Login",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Agenda/{agendaId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44392
+        }
+      ],
+      "UpstreamPathTemplate": "/Medico/AlteraAgenda/{agendaId}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Agendamento",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44393
+        }
+      ],
+      "UpstreamPathTemplate": "/Paciente/NovoAgendamento",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Agendamento/Paciente/MeusAgendamentos",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44393
+        }
+      ],
+      "UpstreamPathTemplate": "/Paciente/MeusAgendamentos",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/Agendamento/cancela",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44393
+        }
+      ],
+      "UpstreamPathTemplate": "/Paciente/CancelaAgendamento",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+
+    {
+      "DownstreamPathTemplate": "/api/Agendamento/AceitaRecusaAgendamento/{agendamentoId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -166,7 +165,7 @@
       "UpstreamHttpMethod": [ "PUT" ]
     },
     {
-      "DownstreamPathTemplate": "/api/Agendamento/medico",
+      "DownstreamPathTemplate": "/api/Agendamento/Medico/MeusAgendamentos",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {

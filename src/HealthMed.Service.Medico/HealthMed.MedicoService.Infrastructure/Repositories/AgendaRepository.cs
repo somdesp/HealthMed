@@ -1,6 +1,6 @@
 ﻿using HealthMed.MedicoService.Application.Contracts.Persistence;
+using HealthMed.MedicoService.Domain.Entities;
 using HealthMed.MedicoService.Infrastructure.Persistence;
-using HealthMed.MedicoServiceService.Domain.Entities;
 
 namespace HealthMed.MedicoService.Infrastructure.Repositories
 {

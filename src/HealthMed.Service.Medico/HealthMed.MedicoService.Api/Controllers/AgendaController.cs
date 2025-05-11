@@ -22,9 +22,9 @@ public class AgendaController : ControllerBase
         _appUsuario = appUsuario;
     }
 
-    [HttpGet("minha-agendas")]
+    [HttpGet("BuscaAgendaDisponivelMedico")]
     [Authorize(Roles = "Medico")]
-    public async Task<ActionResult> BuscaMinhasAgendas()
+    public async Task<ActionResult> BuscaAgendaDisponivelMedico()
     {
         try
         {
@@ -72,7 +72,7 @@ public class AgendaController : ControllerBase
         }
     }
 
-    [HttpGet("agenda/{medicoId:int}")]
+    [HttpGet("BuscaAgendaPorMedicoId/{medicoId:int}")]
     [Authorize(Roles = "Paciente")]
     public async Task<ActionResult> BuscaAgendaPorMedicoId(int medicoId)
     {

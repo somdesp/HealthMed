@@ -1,7 +1,6 @@
 ﻿using HealthMed.BuildingBlocks.Common;
-using HealthMed.MedicoService.Domain.Entities;
 
-namespace HealthMed.MedicoServiceService.Domain.Entities;
+namespace HealthMed.MedicoService.Domain.Entities;
 
 public class AgendaMedico : EntityBase
 {

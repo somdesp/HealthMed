@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using HealthMed.MedicoService.Application.Contracts.Persistence;
 using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.ReservaAgenda;
-using HealthMed.MedicoServiceService.Domain.Entities;
+using HealthMed.MedicoService.Domain.Entities;
 using Moq;
 using Xunit;
 
-namespace HealthMed.MedicoService.Tests.UseCases.Agendas.Commands;
+namespace HealthMed.Tests.MedicoServiceApplication;
 
 public class ReservaAgendaCommandHandlerTests
 {

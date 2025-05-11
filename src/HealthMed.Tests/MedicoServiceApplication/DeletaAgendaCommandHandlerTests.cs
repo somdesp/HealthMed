@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using HealthMed.MedicoService.Application.Contracts.Persistence;
 using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.DeletaAgenda;
-using HealthMed.MedicoServiceService.Domain.Entities;
+using HealthMed.MedicoService.Domain.Entities;
 using MassTransit;
 using MassTransit.Transports;
 using Moq;
 using Xunit;
 
-namespace HealthMed.MedicoService.Tests.UseCases.Agendas.Commands
+namespace HealthMed.Tests.MedicoServiceApplication
 {
     public class DeletaAgendaCommandHandlerTests
     {

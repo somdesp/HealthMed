@@ -2,6 +2,7 @@
 
 using HealthMed.BuildingBlocks.Configurations;
 using HealthMed.PacienteService.Api.Consumers;
+using HealthMed.PacienteService.Application;
 using HealthMed.PacienteService.Infrastructure;
 using HealthMed.PacienteService.Infrastructure.Persistence;
 using MassTransit;

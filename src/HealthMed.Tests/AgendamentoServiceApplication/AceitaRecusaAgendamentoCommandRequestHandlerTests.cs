@@ -9,7 +9,7 @@ using MassTransit;
 using Moq;
 using Xunit;
 
-namespace HealthMed.AgendamentoService.Tests.UseCases.Agendamentos.Commands;
+namespace HealthMed.Tests.AgendamentoServiceApplication;
 
 public class AceitaRecusaAgendamentoCommandRequestHandlerTests
 {

@@ -1,5 +1,4 @@
 ﻿using HealthMed.BuildingBlocks.Common;
-using HealthMed.MedicoServiceService.Domain.Entities;
 
 namespace HealthMed.MedicoService.Domain.Entities;
 

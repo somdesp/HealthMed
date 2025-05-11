@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using HealthMed.MedicoService.Application.Contracts.Persistence;
 using HealthMed.MedicoService.Application.UseCases.Agendas.Commands.NovaAgenda;
-using HealthMed.MedicoServiceService.Domain.Entities;
+using HealthMed.MedicoService.Domain.Entities;
 using Moq;
 
-namespace HealthMed.MedicoService.Tests.UseCases.Agendas.Commands;
+namespace HealthMed.Tests.MedicoServiceApplication;
 
 public class NovaAgendaCommandRequestHandlerTests
 {
