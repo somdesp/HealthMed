@@ -17,7 +17,7 @@ Os dados dos pacientes e de consultas devem ser acessíveis apenas por usuários
 RF05 - Login e Autenticação de Usuário
 O sistema possui um mecanismo de autenticação para acesso por médicos e pacientes.
 
-RF10 - Fila de Processamento Assíncrona
+RF06 - Fila de Processamento Assíncrona
 O sistema processa notificações e atualizações de agenda via fila (RabbitMQ), desacoplando essas tarefas da interface principal.
 
 ## ✅ Requisitos Não Funcionais (RNF)
