@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { PacienteComponent } from './pages/agendamentos-paciente/paciente.component';
+import { PacienteComponent } from './pages/paciente/agendamentos-paciente/paciente.component';
 import { authGuard } from './core/guards/auth.guard';
 import { MedicoLoginComponent } from './login/medico-login/medico-login.component';
 import { PacienteLoginComponent } from './login/paciente-login/paciente-login.component';
-import { MedicoComponent } from './pages/agendamentos-medico/medico.component';
+import { MedicoComponent } from './pages/medico/agendamentos-medico/medico.component';
 import { RoleGuardService } from './core/guards/role-guard.service';
 import { LoginComponent } from './login/login/login.component';
 

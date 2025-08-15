@@ -1,0 +1,15 @@
+<div class="container">
+    <h2>Horários do Médico</h2>
+    <ul>
+        <li *ngFor="let h of Agendas">
+            {{ h.dataHora | date: 'dd/MM/yyyy HH:mm' }}
+            <button (click)="deletaAgenda(h.id)">Excluir</button>
+        </li>
+    </ul>
+    <form (ngSubmit)="adicionarAgenda()">
+        <label for="dataHora">Data e Hora:</label>
+        <input type="datetime-local" [(ngModel)]="NovaAgenda" id="dataHora" [ngModelOptions]="{standalone: true}" />
+        <button type="submit">Adicionar</button>
+        <button mat-button color="warn" (click)="fechar()">Fechar</button>
+    </form>
+</div>

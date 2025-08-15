@@ -20,7 +20,7 @@ spec:
         app: api-medico-latest
     spec:
       containers:
-        - image: somdesp/healthmed:api_doctor_latest
+        - image: somdesp/healthmed:api_medico_latest
           name: api-medico-latest
           ports:
             - containerPort: 8080

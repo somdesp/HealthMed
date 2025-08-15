@@ -66,7 +66,7 @@ using (var scope = app.Services.CreateScope())
 
 app.UseRouting();
 
-app.UseHttpsRedirection();
+
 
 app.UseAuthentication();
 app.UseAuthorization();

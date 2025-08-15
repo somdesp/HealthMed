@@ -1,0 +1,31 @@
+<div class="tabela-container">
+    <!-- Tabela de Consultas -->
+    <button class="btn btn-secondary" (click)="abrirAgendas()">Abrir Agenda</button>
+    <table class="tabela-consultas">
+        <thead>
+            <tr>
+                <th>Paciente</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let consulta of consultas">
+                <td>{{ consulta.paciente }}</td>
+                <td>{{ consulta.dataHora | date: 'dd/MM/YY HH:mm' }}</td>
+                <td>
+                    <span [class]="consulta.status.toLocaleLowerCase()">{{ consulta.status }}</span>
+
+                </td>
+                <td>
+                    <select *ngIf="consulta.status == 'Pendente'" [(ngModel)]="consulta.status" class="status-select">
+                        <option value="pendente">Recusar</option>
+                        <option value="confirmada">Confirmar</option>
+                    </select>
+                    <button *ngIf="consulta.status == 'Pendente'" (click)="visualizarLaudo(consulta)">Enviar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -16,13 +16,6 @@
 <div class="tab-content mt-3" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="tabela-container">
-            <!-- Filtro de Pesquisa -->
-            <div class="filtro">
-                <input type="text" [(ngModel)]="filtro" placeholder="Buscar por médico ou especialidade..."
-                    class="input-pesquisa" />
-            </div>
-
-            <!-- Tabela de Consultas -->
             <table class="tabela-consultas">
                 <thead>
                     <tr>
@@ -35,14 +28,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let consulta of consultasFiltradas()">
+                    <tr *ngFor="let consulta of consultas">
                         <td>{{ consulta.medico }}</td>
                         <td>{{ consulta.especialidade }}</td>
-                        <td>{{ consulta.data | date: 'dd/MM/yyyy HH:mm' }}</td>
+                        <td>{{ consulta.dataHora | date: 'dd/MM/yyyy HH:mm' }}</td>
                         <td>
                             <span [class]="consulta.status">{{ consulta.status }}</span>
                         </td>
-                        <td>{{ consulta.laudo ?? '—' }}</td>
+                        <td></td>
                         <td>
                             <button (click)="visualizar(consulta)">Visualizar</button>
                         </td>
@@ -79,7 +72,7 @@
                         <td>{{ med.valorConsulta }}</td>
                         <td>{{ med.especialidade.nome }}</td>
                         <td>
-                            <button (click)="visualizar(med)">Visualizar</button>
+                            <button (click)="abrirAgendas(med.id)">Visualizar</button>
                         </td>
                     </tr>
                 </tbody>
